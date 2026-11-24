@@ -1,0 +1,16 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Warn when the exported GLB exceeds the 15 MB budget",
+      "trigger": "PostFileSave",
+      "description": "Enforces the mobile loading budget from the blender spec (under 15 MB) whenever a model is written.",
+      "matcher": "app/static/models/.*\\.glb$",
+      "action": {
+        "type": "command",
+        "command": "f=$(ls -t app/static/models/*.glb | head -1); s=$(stat -f%z \"$f\"); echo \"$f is $((s/1048576)) MB (budget 15 MB, hard cap 50 MB)\"; if [ \"$s\" -gt 15728640 ]; then echo \"WARNING: over budget. Re-run blender/scripts/optimize_glb.sh or reduce textures/props.\" >&2; fi",
+        "timeout": 20
+      }
+    }
+  ]
+}

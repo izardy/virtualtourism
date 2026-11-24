@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% block title %}Admin | VirtualTourism{% endblock %}
+{% macro dest_fields(d) %}
+  <div class="grid gap-4 sm:grid-cols-2">
+    <div class="sm:col-span-2"><label class="label" for="name{{ d.id if d else 'n' }}">Name *</label><input class="input" id="name{{ d.id if d else 'n' }}" name="name" required maxlength="200" value="{{ d.name if d else '' }}"></div>
+    <div><label class="label">Location</label><input class="input" name="location" maxlength="200" value="{{ d.location if d else '' }}"></div>
+    <div><label class="label">Category</label><input class="input" name="category" maxlength="100" value="{{ d.category if d else '' }}"></div>
+    <div class="sm:col-span-2"><label class="label">Historical description (blank line between paragraphs)</label><textarea class="input" name="description" rows="6">{{ d.description if d else '' }}</textarea></div>
+    <div><label class="label">Thumbnail {% if d and d.thumbnail %}<span class="text-white/40">(current: {{ d.thumbnail.split('/')[-1] }})</span>{% endif %}</label><input class="input" type="file" name="thumbnail" accept="image/*"></div>
+    <div><label class="label">Hero image {% if d and d.hero_image %}<span class="text-white/40">(current: {{ d.hero_image.split('/')[-1] }})</span>{% endif %}</label><input class="input" type="file" name="hero_image" accept="image/*"></div>
+    <div class="sm:col-span-2"><label class="label">3D model, .glb or .gltf, max 50 MB {% if d and d.model_path %}<span class="text-white/40">(current: {{ d.model_path.split('/')[-1] }})</span>{% endif %}</label><input class="input" type="file" name="model_path" accept=".glb,.gltf"></div>
+  </div>
+{% endmacro %}
+{% macro hotspot_fields(h) %}
+  <div class="grid gap-4 sm:grid-cols-2">
+    <div class="sm:col-span-2"><label class="label">Title *</label><input class="input" name="title" required maxlength="200" value="{{ h.title if h else '' }}"></div>
+    <div class="sm:col-span-2"><label class="label">Description. Optional facts: add a line "Facts:" then lines starting with "-"</label><textarea class="input" name="description" rows="6">{{ h.description if h else '' }}</textarea></div>
+    <div><label class="label">X (east, m)</label><input class="input" name="x_position" type="number" step="any" value="{{ h.x_position if h else 0 }}"></div>
+    <div><label class="label">Y (up, m)</label><input class="input" name="y_position" type="number" step="any" value="{{ h.y_position if h else 0 }}"></div>
+    <div><label class="label">Z (south, m)</label><input class="input" name="z_position" type="number" step="any" value="{{ h.z_position if h else 0 }}"></div>
+    <div></div>
+    <div><label class="label">Image {% if h and h.image_path %}<span class="text-white/40">(current: {{ h.image_path.split('/')[-1] }})</span>{% endif %}</label><input class="input" type="file" name="image" accept="image/*"></div>
+    <div><label class="label">Audio narration {% if h and h.audio_path %}<span class="text-white/40">(current: {{ h.audio_path.split('/')[-1] }})</span>{% endif %}</label><input class="input" type="file" name="audio" accept="audio/*"></div>
+  </div>
+{% endmacro %}
+{% block content %}
+<section class="mx-auto max-w-6xl px-6 pb-10 pt-32">
+  <h1 class="h-display glow-text text-4xl font-semibold">Admin</h1>
+  <p class="mt-2 text-white/60">Add destinations, upload 3D models, and place hotspots. Coordinates use glTF axes: x east, y up, z south (the viewer shows them in the model's own space).</p>
+  <div class="mt-8 grid gap-8 lg:grid-cols-[280px_1fr]">
+    <aside class="space-y-4">
+      <nav class="glass p-3" aria-label="Destinations">
+        <ul class="space-y-1">
+          {% for d in destinations %}
+          <li><a href="{{ url_for('admin.dashboard', dest=d.id) }}" class="block rounded-xl px-3 py-2 {{ 'bg-cyan/15 text-cyan' if selected and selected.id == d.id else 'text-white/80 hover:bg-white/5' }}">{{ d.name }}</a></li>
+          {% else %}<li class="px-3 py-2 text-white/50">No destinations yet.</li>{% endfor %}
+        </ul>
+      </nav>
+      <details class="glass p-4">
+        <summary class="cursor-pointer font-medium text-cyan">+ Add destination</summary>
+        <form class="mt-4" method="post" action="{{ url_for('admin.create_destination') }}" enctype="multipart/form-data">
+          <input type="hidden" name="_csrf" value="{{ csrf_token }}">
+          {{ dest_fields(none) }}
+          <button class="btn-primary mt-4 w-full" type="submit">Create</button>
+        </form>
+      </details>
+    </aside>
+
+    <div class="space-y-8">
+      {% if selected %}
+      <section class="glass p-6">
+        <div class="flex flex-wrap items-center justify-between gap-3"><h2 class="h-display text-2xl font-semibold">{{ selected.name }}</h2>
+          <a class="btn-glass !py-2" href="{{ url_for('main.destination', dest_id=selected.id) }}">View page</a></div>
+        <form class="mt-5" method="post" action="{{ url_for('admin.update_destination', dest_id=selected.id) }}" enctype="multipart/form-data">
+          <input type="hidden" name="_csrf" value="{{ csrf_token }}">
+          {{ dest_fields(selected) }}
+          <div class="mt-5 flex flex-wrap gap-3"><button class="btn-primary" type="submit">Save changes</button></div>
+        </form>
+        <form class="mt-3" method="post" action="{{ url_for('admin.delete_destination', dest_id=selected.id) }}" onsubmit="return confirm('Delete this destination and all its hotspots?');">
+          <input type="hidden" name="_csrf" value="{{ csrf_token }}"><button class="btn-danger" type="submit">Delete destination</button>
+        </form>
+      </section>
+
+      <section class="glass p-6">
+        <h2 class="h-display text-2xl font-semibold">Hotspots ({{ selected.hotspots|length }})</h2>
+        <div class="mt-4 space-y-3">
+          {% for h in selected.hotspots %}
+          <details class="rounded-xl border border-white/10 bg-white/5 p-4">
+            <summary class="cursor-pointer"><span class="font-medium">{{ loop.index }}. {{ h.title }}</span> <span class="text-xs text-white/40">({{ '%.1f'|format(h.x_position) }}, {{ '%.1f'|format(h.y_position) }}, {{ '%.1f'|format(h.z_position) }})</span></summary>
+            <form class="mt-4" method="post" action="{{ url_for('admin.update_hotspot', hid=h.id) }}" enctype="multipart/form-data">
+              <input type="hidden" name="_csrf" value="{{ csrf_token }}">
+              {{ hotspot_fields(h) }}
+              <button class="btn-primary mt-4" type="submit">Save hotspot</button>
+            </form>
+            <form class="mt-3" method="post" action="{{ url_for('admin.delete_hotspot', hid=h.id) }}" onsubmit="return confirm('Delete this hotspot?');">
+              <input type="hidden" name="_csrf" value="{{ csrf_token }}"><button class="btn-danger" type="submit">Delete hotspot</button>
+            </form>
+          </details>
+          {% endfor %}
+        </div>
+        <details class="mt-5 rounded-xl border border-cyan/30 bg-cyan/5 p-4">
+          <summary class="cursor-pointer font-medium text-cyan">+ Create hotspot</summary>
+          <form class="mt-4" method="post" action="{{ url_for('admin.create_hotspot', dest_id=selected.id) }}" enctype="multipart/form-data">
+            <input type="hidden" name="_csrf" value="{{ csrf_token }}">
+            {{ hotspot_fields(none) }}
+            <button class="btn-primary mt-4" type="submit">Create hotspot</button>
+          </form>
+        </details>
+      </section>
+      {% else %}
+      <section class="glass p-8 text-center text-white/70">Create your first destination with the form on the left.</section>
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% endblock %}

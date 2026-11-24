@@ -1,0 +1,40 @@
+# Tasks: Core Application and 3D/VR Experience
+
+- [x] 1. Project scaffolding
+  - [x] 1.1 Create folder structure, `requirements.txt` (Flask, Flask-SQLAlchemy, Flask-Login, Authlib, python-dotenv, requests), `app.py`, `app/__init__.py` with `create_app` and `app/config.py`
+  - [x] 1.2 Add `base.html` layout with Tailwind, nav, flash messages and 404 template
+  - _Requirements: 1, 9_
+
+- [x] 2. Public pages
+  - [x] 2.1 Implement `main` blueprint routes `/`, `/explore`, `/destination/<id>`
+  - [x] 2.2 Build `index.html` (hero, featured destination, about, VR intro, CTAs, login buttons)
+  - [x] 2.3 Build `explore.html` with cards and name search plus empty state
+  - [x] 2.4 Build `destination.html` (hero, description, gallery, hotspots, VR availability, 3D/VR buttons)
+  - _Requirements: 2, 3, 4_
+
+- [x] 3. Hotspot API and viewer route
+  - [x] 3.1 Add `/viewer/<id>` and `/api/destinations/<id>/hotspots`
+  - [x] 3.2 Build `viewer.html` with canvas, loading overlay, info panel and VR button
+  - _Requirements: 5, 6, 7_
+
+- [x] 4. Three.js modules (`static/js`)
+  - [x] 4.1 `SceneManager` (renderer, lights, loop, resize)
+  - [x] 4.2 `ModelLoader` (GLTFLoader, progress, error handling, walkable mesh list)
+  - [x] 4.3 `CameraController` (mouse look, touch look)
+  - [x] 4.4 `MovementSystem` (WASD, joystick, teleport)
+  - [x] 4.5 `HotspotManager` (markers, raycast click, info panel, audio control)
+  - [x] 4.6 `VRController` (WebXR session, stereo split-screen fallback, gyroscope)
+  - [x] 4.7 `viewer.js` wiring all modules
+  - _Requirements: 5, 6, 7, 8_
+
+- [x] 5. Performance pass
+  - [ ] 5.1 Lazy-load media, cap pixel ratio, verify load under 5 s and ~60 FPS on a mid-range Android phone
+  - _Requirements: 5.4, 5.5_
+
+- [x] 6. Documentation and deployment
+  - [x] 6.1 Write README setup instructions and `.env.example`
+  - [x] 6.2 Add deployment notes/Procfile for Render, Railway, PythonAnywhere
+  - _Requirements: 9_
+
+- [x] 7. Demo verification
+  - [ ] 7.1 Walk through the full flow on desktop and Android Cardboard

@@ -1,0 +1,24 @@
+# Never ignore .kiro: the Kiroween rules require it in the repo.
+.DS_Store
+.venv/
+__pycache__/
+*.pyc
+.env
+instance/
+*.db
+node_modules/
+
+# Third-party / large raw material (licences unclear or too big for the repo)
+reference/video/
+reference/inbox/
+reference/sitemap/*.jpg
+reference/sitemap/*.jpeg
+reference/photos/**/ref-*
+blender/assets/
+blender/out/
+blender/src/*.blend1
+
+# Full-size originals (web-sized copies with credits ship in app/static/images)
+reference/photos/**/*.jpg
+reference/photos/**/*.jpeg
+blender/src/*.blend

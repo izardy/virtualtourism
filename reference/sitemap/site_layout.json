@@ -1,0 +1,528 @@
+{
+ "source_image": "map-visitor-2048.jpeg",
+ "image_size": [
+  2048,
+  1489
+ ],
+ "eras": {
+  "British": "1930-1941",
+  "Japanese": "1941-1945"
+ },
+ "hours_on_map": "Open daily 9.00am-6.00pm and 7.00pm-11.00pm",
+ "coordinates_note": "Pixel positions of number markers read by eye, +/-15 px. Map is a schematic illustration, not to scale. North is up on the map (not confirmed).",
+ "numbered": [
+  {
+   "n": 1,
+   "name": "Pill Box",
+   "x": 1610,
+   "y": 787,
+   "where": "east perimeter",
+   "kind": "fort relic",
+   "east_m": -191.7,
+   "north_m": 7.3
+  },
+  {
+   "n": 2,
+   "name": "Pill Box",
+   "x": 632,
+   "y": 1205,
+   "where": "south, beside the access road",
+   "kind": "fort relic",
+   "east_m": 72.4,
+   "north_m": 120.2
+  },
+  {
+   "n": 3,
+   "name": "Office & R&D",
+   "x": 955,
+   "y": 606,
+   "where": "main spine, near entrance",
+   "kind": "building",
+   "east_m": -14.9,
+   "north_m": -41.6
+  },
+  {
+   "n": 4,
+   "name": "Mortuary (JPN)",
+   "x": 988,
+   "y": 552,
+   "where": "main spine",
+   "kind": "building",
+   "east_m": -23.8,
+   "north_m": -56.2
+  },
+  {
+   "n": 5,
+   "name": "Open Air Theatre",
+   "x": 1027,
+   "y": 466,
+   "where": "main spine",
+   "kind": "feature",
+   "east_m": -34.3,
+   "north_m": -79.4
+  },
+  {
+   "n": 6,
+   "name": "Generator Room (BR) / Torture Chamber (JPN)",
+   "x": 1145,
+   "y": 443,
+   "where": "north-east, camouflage-painted building",
+   "kind": "building",
+   "east_m": -66.2,
+   "north_m": -85.6
+  },
+  {
+   "n": 7,
+   "name": "British Other Ranks 1",
+   "x": 1106,
+   "y": 484,
+   "where": "barracks row, centre",
+   "kind": "barracks",
+   "east_m": -55.6,
+   "north_m": -74.5
+  },
+  {
+   "n": 8,
+   "name": "Underground Communication Centre",
+   "x": 1086,
+   "y": 590,
+   "where": "centre",
+   "kind": "underground",
+   "east_m": -50.2,
+   "north_m": -45.9
+  },
+  {
+   "n": 9,
+   "name": "Medical Infirmary, Store, Dressing",
+   "x": 1107,
+   "y": 698,
+   "where": "centre-south",
+   "kind": "building",
+   "east_m": -55.9,
+   "north_m": -16.7
+  },
+  {
+   "n": 10,
+   "name": "British Officer 1, British Officer 2, Dining",
+   "x": 1113,
+   "y": 817,
+   "where": "south of centre",
+   "kind": "building",
+   "east_m": -57.5,
+   "north_m": 15.4
+  },
+  {
+   "n": 11,
+   "name": "Intelligence Room",
+   "x": 1214,
+   "y": 588,
+   "where": "centre-east",
+   "kind": "building",
+   "east_m": -84.8,
+   "north_m": -46.4
+  },
+  {
+   "n": 12,
+   "name": "Cook House",
+   "x": 1315,
+   "y": 723,
+   "where": "east, long white building",
+   "kind": "building",
+   "east_m": -112.1,
+   "north_m": -10.0
+  },
+  {
+   "n": 13,
+   "name": "Indian Other Ranks 3, 3A",
+   "x": 1487,
+   "y": 653,
+   "where": "east barracks",
+   "kind": "barracks",
+   "east_m": -158.5,
+   "north_m": -28.9
+  },
+  {
+   "n": 14,
+   "name": "Indian Other Ranks 4, 4A",
+   "x": 1516,
+   "y": 570,
+   "where": "east barracks",
+   "kind": "barracks",
+   "east_m": -166.3,
+   "north_m": -51.3
+  },
+  {
+   "n": 15,
+   "name": "Indian Other Ranks 1, 1A",
+   "x": 1381,
+   "y": 609,
+   "where": "east barracks",
+   "kind": "barracks",
+   "east_m": -129.9,
+   "north_m": -40.8
+  },
+  {
+   "n": 16,
+   "name": "Indian Other Ranks 2, 2A",
+   "x": 1421,
+   "y": 556,
+   "where": "east barracks",
+   "kind": "barracks",
+   "east_m": -140.7,
+   "north_m": -55.1
+  },
+  {
+   "n": 17,
+   "name": "Cook House",
+   "x": 1490,
+   "y": 489,
+   "where": "north-east",
+   "kind": "building",
+   "east_m": -159.3,
+   "north_m": -73.2
+  },
+  {
+   "n": 18,
+   "name": "Malay Other Ranks 1, 1A (and Malay Other Ranks)",
+   "x": 1388,
+   "y": 390,
+   "where": "north-east",
+   "kind": "barracks",
+   "east_m": -131.8,
+   "north_m": -99.9
+  },
+  {
+   "n": 19,
+   "name": "Lock-up / barracks block (label unclear)",
+   "x": 1335,
+   "y": 505,
+   "where": "centre-east",
+   "kind": "building",
+   "east_m": -117.5,
+   "north_m": -68.9
+  },
+  {
+   "n": 20,
+   "name": "Lock-up, Cook House",
+   "x": 1277,
+   "y": 543,
+   "where": "centre-east",
+   "kind": "building",
+   "east_m": -101.8,
+   "north_m": -58.6
+  },
+  {
+   "n": 21,
+   "name": "British Other Ranks 3",
+   "x": 1266,
+   "y": 422,
+   "where": "north-east",
+   "kind": "barracks",
+   "east_m": -98.8,
+   "north_m": -91.3
+  },
+  {
+   "n": 22,
+   "name": "British Other Ranks 2",
+   "x": 1207,
+   "y": 447,
+   "where": "north",
+   "kind": "barracks",
+   "east_m": -82.9,
+   "north_m": -84.5
+  },
+  {
+   "n": 23,
+   "name": "Underground Water Tank",
+   "x": 1116,
+   "y": 387,
+   "where": "north",
+   "kind": "underground",
+   "east_m": -58.3,
+   "north_m": -100.7
+  },
+  {
+   "n": 24,
+   "name": "Observation Post",
+   "x": 1045,
+   "y": 372,
+   "where": "north end of main spine, caged structure",
+   "kind": "lookout",
+   "east_m": -39.2,
+   "north_m": -104.8
+  },
+  {
+   "n": 25,
+   "name": "Canon Firing Bay",
+   "x": 845,
+   "y": 407,
+   "where": "north-west",
+   "kind": "gun",
+   "east_m": 14.9,
+   "north_m": -95.3
+  },
+  {
+   "n": 26,
+   "name": "Tunnel",
+   "x": 597,
+   "y": 440,
+   "where": "west",
+   "kind": "tunnel",
+   "east_m": 81.8,
+   "north_m": -86.4
+  },
+  {
+   "n": 27,
+   "name": "(unlabeled, next to Pill Box 37)",
+   "x": 663,
+   "y": 414,
+   "where": "north-west",
+   "kind": "unknown",
+   "east_m": 64.0,
+   "north_m": -93.4
+  },
+  {
+   "n": 28,
+   "name": "Well",
+   "x": 511,
+   "y": 474,
+   "where": "west",
+   "kind": "feature",
+   "east_m": 105.0,
+   "north_m": -77.2
+  },
+  {
+   "n": 29,
+   "name": "Tunnel",
+   "x": 838,
+   "y": 498,
+   "where": "west-centre",
+   "kind": "tunnel",
+   "east_m": 16.7,
+   "north_m": -70.7
+  },
+  {
+   "n": 30,
+   "name": "Anti-Aircraft Pit",
+   "x": 933,
+   "y": 425,
+   "where": "north",
+   "kind": "gun",
+   "east_m": -8.9,
+   "north_m": -90.5
+  },
+  {
+   "n": 31,
+   "name": "Booby Trap Zone",
+   "x": 564,
+   "y": 293,
+   "where": "far north-west, barbed wire",
+   "kind": "feature",
+   "east_m": 90.7,
+   "north_m": -126.1
+  },
+  {
+   "n": 32,
+   "name": "General Yamashita Gallow",
+   "x": 1237,
+   "y": 333,
+   "where": "north-east",
+   "kind": "feature",
+   "east_m": -91.0,
+   "north_m": -115.3
+  },
+  {
+   "n": 33,
+   "name": "Trench Route",
+   "x": 948,
+   "y": 345,
+   "where": "north",
+   "kind": "trench",
+   "east_m": -13.0,
+   "north_m": -112.1
+  },
+  {
+   "n": 34,
+   "name": "Guillotine",
+   "x": 1007,
+   "y": 522,
+   "where": "main spine",
+   "kind": "feature",
+   "east_m": -28.9,
+   "north_m": -64.3
+  },
+  {
+   "n": 35,
+   "name": "Armoury",
+   "x": 1180,
+   "y": 404,
+   "where": "north",
+   "kind": "building",
+   "east_m": -75.6,
+   "north_m": -96.1
+  },
+  {
+   "n": 36,
+   "name": "Canon",
+   "x": 772,
+   "y": 593,
+   "where": "west-centre",
+   "kind": "gun",
+   "east_m": 34.6,
+   "north_m": -45.1
+  },
+  {
+   "n": 37,
+   "name": "Pill Box",
+   "x": 614,
+   "y": 405,
+   "where": "north-west",
+   "kind": "fort relic",
+   "east_m": 77.2,
+   "north_m": -95.9
+  }
+ ],
+ "facilities_and_outside": [
+  {
+   "name": "Information & Ticketing",
+   "x": 900,
+   "y": 760,
+   "where": "entrance, south of centre",
+   "east_m": 0.0,
+   "north_m": 0.0
+  },
+  {
+   "name": "Souvenir shop",
+   "x": 960,
+   "y": 670,
+   "where": "beside ticketing",
+   "east_m": -16.2,
+   "north_m": -24.3
+  },
+  {
+   "name": "Cafeteria",
+   "x": 665,
+   "y": 720,
+   "where": "west of entrance",
+   "east_m": 63.5,
+   "north_m": -10.8
+  },
+  {
+   "name": "Toilets (several)",
+   "x": 830,
+   "y": 575,
+   "where": "also near 10, 15/16 and 1",
+   "east_m": 18.9,
+   "north_m": -50.0
+  },
+  {
+   "name": "Car Park",
+   "x": 485,
+   "y": 950,
+   "where": "south-west",
+   "east_m": 112.1,
+   "north_m": 51.3
+  },
+  {
+   "name": "VIP Car Park",
+   "x": 865,
+   "y": 890,
+   "where": "south",
+   "east_m": 9.5,
+   "north_m": 35.1
+  },
+  {
+   "name": "War Game Park",
+   "x": 1480,
+   "y": 320,
+   "where": "north-east, outside the fort core",
+   "east_m": -156.6,
+   "north_m": -118.8
+  },
+  {
+   "name": "Barbed wire (coast)",
+   "x": 360,
+   "y": 440,
+   "where": "west coast, outside",
+   "east_m": 145.8,
+   "north_m": -86.4
+  },
+  {
+   "name": "Well (coast)",
+   "x": 290,
+   "y": 487,
+   "where": "west coast",
+   "east_m": 164.7,
+   "north_m": -73.7
+  },
+  {
+   "name": "Pill Boxes (coast, 3)",
+   "x": 260,
+   "y": 565,
+   "where": "west coast, along the shore",
+   "east_m": 172.8,
+   "north_m": -52.7
+  },
+  {
+   "name": "Submarine Landing Bay",
+   "x": 230,
+   "y": 640,
+   "where": "west, on the water",
+   "east_m": 180.9,
+   "north_m": -32.4
+  },
+  {
+   "name": "Maritime Museum / Jetty",
+   "x": 300,
+   "y": 810,
+   "where": "west, on the water",
+   "east_m": 162.0,
+   "north_m": 13.5
+  },
+  {
+   "name": "Generator Room (coast)",
+   "x": 340,
+   "y": 880,
+   "where": "west coast",
+   "east_m": 151.2,
+   "north_m": 32.4
+  },
+  {
+   "name": "Armoury (coast)",
+   "x": 320,
+   "y": 962,
+   "where": "west coast",
+   "east_m": 156.6,
+   "north_m": 54.5
+  },
+  {
+   "name": "Water Tank (coast)",
+   "x": 380,
+   "y": 1032,
+   "where": "south-west coast",
+   "east_m": 140.4,
+   "north_m": 73.4
+  },
+  {
+   "name": "Water Tank (road)",
+   "x": 1690,
+   "y": 958,
+   "where": "south-east, beside road to museum",
+   "east_m": -213.3,
+   "north_m": 53.5
+  }
+ ],
+ "orientation": {
+  "finding": "The visitor map is rotated about 180 degrees: image-up = south, image-left = east, image-right = west, image-down = north.",
+  "evidence": "OSM coastline lies about 250-285 m EAST of the museum pin; the access road Jalan Muzium Perang runs along the north and west side. On the map the sea is at image-left and the road along the bottom/right.",
+  "confidence": "medium-high (error about +/-30 degrees; the map is schematic)",
+  "text_fields": "The 'where' fields describe IMAGE directions, not compass directions. Use east_m and north_m for real directions."
+ },
+ "local_frame": {
+  "origin": "Information & Ticketing at pixel (900,760), approx. at the OSM museum pin",
+  "formula": "east_m = -(x-900)*scale; north_m = (y-760)*scale",
+  "scale_m_per_px": 0.27,
+  "scale_note": "Provisional. North-south check: road ~125 m north of the entrance sits ~500 px below it on the map (0.25 m/px). East-west is compressed: the coast is ~260 m east of the entrance but only ~600 px (0.43 m/px) away on the map. Treat the map as schematic.",
+  "blender": "X = east_m, Y = north_m, Z = up"
+ }
+}

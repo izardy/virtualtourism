@@ -1,0 +1,16 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Rebuild Tailwind CSS on template or style save",
+      "trigger": "PostFileSave",
+      "description": "Keeps app/static/css/app.css in sync with the Tailwind classes used in templates and viewer scripts, so the committed CSS is always current.",
+      "matcher": "app/(templates/.*\\.html|static/css/src\\.css|static/js/[A-Za-z]+\\.js)$",
+      "action": {
+        "type": "command",
+        "command": "npx --yes tailwindcss@3.4 -c tailwind.config.js -i app/static/css/src.css -o app/static/css/app.css --minify 2>&1 | tail -2",
+        "timeout": 90
+      }
+    }
+  ]
+}

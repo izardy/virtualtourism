@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="relative isolate flex min-h-[100svh] items-center overflow-hidden grain">
+  {% if featured and featured.hero_image %}
+  <img src="{{ url_for('static', filename=featured.hero_image) }}" alt="" class="absolute inset-0 -z-20 h-full w-full object-cover opacity-45" fetchpriority="high">
+  {% endif %}
+  <div class="absolute inset-0 -z-10 bg-gradient-to-b from-navy/70 via-navy/80 to-navy"></div>
+  <div class="fog -z-10"></div><div class="fog slow -z-10"></div>
+  <span class="wisp" style="left:12%;bottom:18%;animation-delay:0s"></span><span class="wisp" style="left:78%;bottom:25%;animation-delay:3s"></span>
+  <span class="wisp" style="left:55%;bottom:12%;animation-delay:6s"></span><span class="wisp" style="left:30%;bottom:30%;animation-delay:4.5s"></span>
+  <div class="vignette -z-10"></div>
+  <div class="mx-auto w-full max-w-6xl px-6 pb-16 pt-32">
+    <p class="chip fade-up">Immersive VR tourism &middot; Kiroween 2026</p>
+    <h1 class="h-display glow-text fade-up mt-5 max-w-3xl text-5xl font-semibold leading-[1.05] sm:text-7xl" style="animation-delay:.1s">Walk <span class="text-cyan flicker">Ghost Hill</span> after dark.</h1>
+    <p class="fade-up mt-6 max-w-2xl text-lg text-white/75" style="animation-delay:.2s">Step inside Muzium Perang Penang: a 1930s coastal fort, a wartime prison, and a hill locals call Bukit Hantu. Explore it in 3D on your phone, in your browser, or through a Google Cardboard headset.</p>
+    <div class="fade-up mt-9 flex flex-wrap gap-3" style="animation-delay:.3s">
+      {% if featured %}<a class="btn-primary" href="{{ url_for('main.viewer', dest_id=featured.id) }}">Enter the fort in 3D</a>
+      <a class="btn-glass" href="{{ url_for('main.viewer', dest_id=featured.id, vr=1) }}">Enter VR experience</a>{% endif %}
+      <a class="btn-glass" href="{{ url_for('main.explore') }}">Explore destinations</a>
+    </div>
+    <div id="signin" class="fade-up glass mt-12 max-w-2xl p-5" style="animation-delay:.4s">
+      {% if current_user.is_authenticated %}
+        <p class="text-white/80">Signed in as <strong>{{ current_user.username }}</strong>. <a class="text-cyan underline" href="{{ url_for('user.profile') }}">View profile</a></p>
+      {% else %}
+        <p class="mb-3 text-sm text-white/70">Sign in to save your profile (optional, the tour works without it)</p>
+        {% include "_login_buttons.html" %}
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% if featured %}
+<section class="mx-auto max-w-6xl px-6 py-20">
+  <p class="chip">Featured destination</p>
+  <div class="glass card-hover mt-5 grid overflow-hidden md:grid-cols-2">
+    <img src="{{ url_for('static', filename=featured.hero_image) }}" alt="Entrance of {{ featured.name }}" class="h-72 w-full object-cover md:h-full" loading="lazy">
+    <div class="p-8">
+      <h2 class="h-display text-3xl font-semibold">{{ featured.name }}</h2>
+      <p class="mt-1 text-cyan">{{ featured.location }}</p>
+      <p class="mt-4 text-white/75">{{ featured.paragraphs[0] if featured.paragraphs }}</p>
+      <div class="mt-6 flex flex-wrap gap-3">
+        <a class="btn-primary" href="{{ url_for('main.destination', dest_id=featured.id) }}">Discover the story</a>
+        <a class="btn-glass" href="{{ url_for('main.viewer', dest_id=featured.id) }}">Explore in 3D</a>
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<section class="mx-auto max-w-6xl px-6 py-10">
+  <h2 class="h-display text-3xl font-semibold sm:text-4xl">Heritage you can step into</h2>
+  <div class="mt-8 grid gap-5 md:grid-cols-3">
+    <article class="glass card-hover p-6"><h3 class="h-display text-xl text-cyan">Walk it</h3><p class="mt-2 text-white/70">Move with WASD or touch controls, or teleport. A lantern lights your way through tunnels, gun bays and barracks.</p></article>
+    <article class="glass card-hover p-6"><h3 class="h-display text-xl text-cyan">Hear it</h3><p class="mt-2 text-white/70">Ten glowing hotspots tell the history with photos, facts and spoken narration. Ghost stories are marked as folklore, never as fact.</p></article>
+    <article class="glass card-hover p-6"><h3 class="h-display text-xl text-cyan">Feel it in VR</h3><p class="mt-2 text-white/70">Slide your phone into Google Cardboard. Split-screen 3D and head tracking work on Android, and WebXR headsets are supported.</p></article>
+  </div>
+</section>
+
+<section class="mx-auto max-w-6xl px-6 py-16">
+  <div class="glass-strong grid gap-8 p-8 md:grid-cols-[1.2fr_1fr] md:p-12">
+    <div>
+      <h2 class="h-display text-3xl font-semibold">Why virtual tourism?</h2>
+      <p class="mt-4 text-white/75">Not everyone can climb a hill in the tropical heat. Schools, older visitors and people far from Penang can still walk these tunnels, learn the history, and decide whether to visit in person. Heritage sites also get a preserved record of how they look today.</p>
+      <p class="mt-3 text-sm text-white/50">This reconstruction is provisional and unofficial. Always follow the museum's own signs and guides on a real visit.</p>
+    </div>
+    <ul class="space-y-3 text-white/80">
+      <li class="flex gap-3"><span class="text-cyan">&#9679;</span> Works on phones, desktops and Cardboard</li>
+      <li class="flex gap-3"><span class="text-cyan">&#9679;</span> Compressed 11 MB 3D model, loads fast</li>
+      <li class="flex gap-3"><span class="text-cyan">&#9679;</span> Admin panel to add new destinations</li>
+    </ul>
+  </div>
+</section>
+{% endblock %}

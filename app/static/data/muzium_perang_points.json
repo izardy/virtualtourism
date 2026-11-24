@@ -1,0 +1,458 @@
+{
+ "loc_01_pill_box": {
+  "label": "Pill Box",
+  "gltf_xyz": [
+   -191.7,
+   -34.22,
+   -7.3
+  ]
+ },
+ "loc_02_pill_box": {
+  "label": "Pill Box",
+  "gltf_xyz": [
+   72.4,
+   -15.63,
+   -120.2
+  ]
+ },
+ "loc_03_office___r_d": {
+  "label": "Office & R&D",
+  "gltf_xyz": [
+   -14.9,
+   -6.13,
+   41.6
+  ]
+ },
+ "loc_04_mortuary__jpn": {
+  "label": "Mortuary (JPN)",
+  "gltf_xyz": [
+   -23.8,
+   -7.14,
+   56.2
+  ]
+ },
+ "loc_05_open_air_theatre": {
+  "label": "Open Air Theatre",
+  "gltf_xyz": [
+   -34.3,
+   -5.05,
+   79.4
+  ]
+ },
+ "loc_06_generator_room__br____torture_chamber__jpn": {
+  "label": "Generator Room (BR) / Torture Chamber (JPN)",
+  "gltf_xyz": [
+   -66.2,
+   -9.28,
+   85.6
+  ]
+ },
+ "loc_07_british_other_ranks_1": {
+  "label": "British Other Ranks 1",
+  "gltf_xyz": [
+   -55.6,
+   -8.04,
+   74.5
+  ]
+ },
+ "loc_08_underground_communication_centre": {
+  "label": "Underground Communication Centre",
+  "gltf_xyz": [
+   -50.2,
+   -10.05,
+   45.9
+  ]
+ },
+ "loc_09_medical_infirmary__store__dressing": {
+  "label": "Medical Infirmary, Store, Dressing",
+  "gltf_xyz": [
+   -55.9,
+   -16.04,
+   16.7
+  ]
+ },
+ "loc_10_british_officer_1__british_officer_2__dining": {
+  "label": "British Officer 1, British Officer 2, Dining",
+  "gltf_xyz": [
+   -57.5,
+   -18.16,
+   -15.4
+  ]
+ },
+ "loc_11_intelligence_room": {
+  "label": "Intelligence Room",
+  "gltf_xyz": [
+   -84.8,
+   -15.99,
+   46.4
+  ]
+ },
+ "loc_12_cook_house": {
+  "label": "Cook House",
+  "gltf_xyz": [
+   -112.1,
+   -23.02,
+   10.0
+  ]
+ },
+ "loc_13_indian_other_ranks_3__3a": {
+  "label": "Indian Other Ranks 3, 3A",
+  "gltf_xyz": [
+   -158.5,
+   -27.42,
+   28.9
+  ]
+ },
+ "loc_14_indian_other_ranks_4__4a": {
+  "label": "Indian Other Ranks 4, 4A",
+  "gltf_xyz": [
+   -166.3,
+   -25.63,
+   51.3
+  ]
+ },
+ "loc_15_indian_other_ranks_1__1a": {
+  "label": "Indian Other Ranks 1, 1A",
+  "gltf_xyz": [
+   -129.9,
+   -22.94,
+   40.8
+  ]
+ },
+ "loc_16_indian_other_ranks_2__2a": {
+  "label": "Indian Other Ranks 2, 2A",
+  "gltf_xyz": [
+   -140.7,
+   -24.63,
+   55.1
+  ]
+ },
+ "loc_17_cook_house": {
+  "label": "Cook House",
+  "gltf_xyz": [
+   -159.3,
+   -22.81,
+   73.2
+  ]
+ },
+ "loc_18_malay_other_ranks_1__1a__and_malay_other_ranks": {
+  "label": "Malay Other Ranks 1, 1A (and Malay Other Ranks)",
+  "gltf_xyz": [
+   -131.8,
+   -15.15,
+   99.9
+  ]
+ },
+ "loc_19_lock_up___barracks_block__label_unclear": {
+  "label": "Lock-up / barracks block (label unclear)",
+  "gltf_xyz": [
+   -117.5,
+   -19.04,
+   68.9
+  ]
+ },
+ "loc_20_lock_up__cook_house": {
+  "label": "Lock-up, Cook House",
+  "gltf_xyz": [
+   -101.8,
+   -16.83,
+   58.6
+  ]
+ },
+ "loc_21_british_other_ranks_3": {
+  "label": "British Other Ranks 3",
+  "gltf_xyz": [
+   -98.8,
+   -13.09,
+   91.3
+  ]
+ },
+ "loc_22_british_other_ranks_2": {
+  "label": "British Other Ranks 2",
+  "gltf_xyz": [
+   -82.9,
+   -10.97,
+   84.5
+  ]
+ },
+ "loc_23_underground_water_tank": {
+  "label": "Underground Water Tank",
+  "gltf_xyz": [
+   -58.3,
+   -7.14,
+   100.7
+  ]
+ },
+ "loc_24_observation_post": {
+  "label": "Observation Post",
+  "gltf_xyz": [
+   -39.2,
+   -4.94,
+   104.8
+  ]
+ },
+ "loc_25_canon_firing_bay": {
+  "label": "Canon Firing Bay",
+  "gltf_xyz": [
+   14.9,
+   0.68,
+   95.3
+  ]
+ },
+ "loc_26_tunnel": {
+  "label": "Tunnel",
+  "gltf_xyz": [
+   81.8,
+   2.15,
+   86.4
+  ]
+ },
+ "loc_27_unlabeled__next_to_pill_box_37": {
+  "label": "(unlabeled, next to Pill Box 37)",
+  "gltf_xyz": [
+   64.0,
+   1.58,
+   93.4
+  ]
+ },
+ "loc_28_well": {
+  "label": "Well",
+  "gltf_xyz": [
+   105.0,
+   -1.86,
+   77.2
+  ]
+ },
+ "loc_29_tunnel": {
+  "label": "Tunnel",
+  "gltf_xyz": [
+   16.7,
+   -1.3,
+   70.7
+  ]
+ },
+ "loc_30_anti_aircraft_pit": {
+  "label": "Anti-Aircraft Pit",
+  "gltf_xyz": [
+   -8.9,
+   -1.84,
+   90.5
+  ]
+ },
+ "loc_31_booby_trap_zone": {
+  "label": "Booby Trap Zone",
+  "gltf_xyz": [
+   90.7,
+   0.27,
+   126.1
+  ]
+ },
+ "loc_32_general_yamashita_gallow": {
+  "label": "General Yamashita Gallow",
+  "gltf_xyz": [
+   -91.0,
+   -10.53,
+   115.3
+  ]
+ },
+ "loc_33_trench_route": {
+  "label": "Trench Route",
+  "gltf_xyz": [
+   -13.0,
+   0.52,
+   112.1
+  ]
+ },
+ "loc_34_guillotine": {
+  "label": "Guillotine",
+  "gltf_xyz": [
+   -28.9,
+   -6.22,
+   64.3
+  ]
+ },
+ "loc_35_armoury": {
+  "label": "Armoury",
+  "gltf_xyz": [
+   -75.6,
+   -8.83,
+   96.1
+  ]
+ },
+ "loc_36_canon": {
+  "label": "Canon",
+  "gltf_xyz": [
+   34.6,
+   -1.84,
+   45.1
+  ]
+ },
+ "loc_37_pill_box": {
+  "label": "Pill Box",
+  "gltf_xyz": [
+   77.2,
+   1.94,
+   95.9
+  ]
+ },
+ "loc_fac_ticketing": {
+  "label": "Information & Ticketing",
+  "gltf_xyz": [
+   0.0,
+   -6.41,
+   -0.0
+  ]
+ },
+ "loc_fac_souvenir": {
+  "label": "Souvenir shop",
+  "gltf_xyz": [
+   -16.2,
+   -7.17,
+   24.3
+  ]
+ },
+ "loc_fac_cafeteria": {
+  "label": "Cafeteria",
+  "gltf_xyz": [
+   63.5,
+   -4.66,
+   10.8
+  ]
+ },
+ "loc_fac_toilet_1": {
+  "label": "Toilets",
+  "gltf_xyz": [
+   -45.0,
+   -14.83,
+   -4.0
+  ]
+ },
+ "loc_fac_toilet_2": {
+  "label": "Toilets",
+  "gltf_xyz": [
+   -60,
+   -9.58,
+   55
+  ]
+ },
+ "loc_fac_toilet_3": {
+  "label": "Toilets",
+  "gltf_xyz": [
+   -130,
+   -24.62,
+   10
+  ]
+ },
+ "loc_fac_car_park": {
+  "label": "Car Park",
+  "gltf_xyz": [
+   112.1,
+   -12.89,
+   -51.3
+  ]
+ },
+ "loc_fac_vip_car_park": {
+  "label": "VIP Car Park",
+  "gltf_xyz": [
+   9.5,
+   -10.83,
+   -35.1
+  ]
+ },
+ "loc_fac_war_game_park": {
+  "label": "War Game Park (open area)",
+  "gltf_xyz": [
+   -156.6,
+   -17.21,
+   118.8
+  ]
+ },
+ "loc_fac_coast_barbed_wire": {
+  "label": "Barbed wire (coast)",
+  "gltf_xyz": [
+   145.8,
+   -6.6,
+   86.4
+  ]
+ },
+ "loc_fac_coast_well": {
+  "label": "Well (coast)",
+  "gltf_xyz": [
+   164.7,
+   -12.73,
+   73.7
+  ]
+ },
+ "loc_fac_coast_pillboxes": {
+  "label": "Pill Boxes (coast, 3)",
+  "gltf_xyz": [
+   172.8,
+   -15.37,
+   52.7
+  ]
+ },
+ "loc_fac_submarine_landing_bay": {
+  "label": "Submarine Landing Bay (slipway)",
+  "gltf_xyz": [
+   180.9,
+   -19.5,
+   32.4
+  ]
+ },
+ "loc_fac_maritime_museum_jetty": {
+  "label": "Maritime Museum / Jetty",
+  "gltf_xyz": [
+   162.0,
+   -18.36,
+   -13.5
+  ]
+ },
+ "loc_fac_coast_generator_room": {
+  "label": "Generator Room (coast)",
+  "gltf_xyz": [
+   151.2,
+   -17.69,
+   -32.4
+  ]
+ },
+ "loc_fac_coast_armoury": {
+  "label": "Armoury (coast)",
+  "gltf_xyz": [
+   156.6,
+   -21.7,
+   -54.5
+  ]
+ },
+ "loc_fac_coast_water_tank": {
+  "label": "Water Tank (coast)",
+  "gltf_xyz": [
+   140.4,
+   -19.51,
+   -73.4
+  ]
+ },
+ "loc_fac_road_water_tank": {
+  "label": "Water Tank (road)",
+  "gltf_xyz": [
+   -213.3,
+   -34.31,
+   -53.5
+  ]
+ },
+ "loc_escape_route_shaft": {
+  "label": "Escape route (provisional: location unconfirmed)",
+  "gltf_xyz": [
+   44.86,
+   -0.8,
+   88.85
+  ]
+ },
+ "loc_memorial_plaque": {
+  "label": "To Our Glorious Dead (provisional location)",
+  "gltf_xyz": [
+   10.0,
+   -1.99,
+   75.0
+  ]
+ }
+}

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Access denied' if forbidden else 'Lost in the fog' }} | VirtualTourism{% endblock %}
+{% block content %}
+<section class="relative grid min-h-screen place-items-center overflow-hidden px-6 text-center">
+  <div class="fog"></div><div class="vignette"></div>
+  <div class="relative z-10 max-w-lg">
+    <p class="chip">{{ '403' if forbidden else '404' }}</p>
+    <h1 class="h-display glow-text mt-4 text-4xl font-semibold sm:text-5xl">{{ 'This door stays locked' if forbidden else 'You have wandered into the fog' }}</h1>
+    <p class="mt-4 text-white/70">{{ 'You need administrator access for this page.' if forbidden else 'That page does not exist, or the destination was removed.' }}</p>
+    <a href="{{ url_for('main.index') }}" class="btn-primary mt-8">Back to the start</a>
+  </div>
+</section>
+{% endblock %}

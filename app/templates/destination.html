@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block title %}{{ d.name }} | VirtualTourism{% endblock %}
+{% block content %}
+<section class="relative isolate flex min-h-[70svh] items-end overflow-hidden grain">
+  {% if d.hero_image %}<img src="{{ url_for('static', filename=d.hero_image) }}" alt="{{ d.name }}" class="absolute inset-0 -z-20 h-full w-full object-cover opacity-60" fetchpriority="high">{% endif %}
+  <div class="absolute inset-0 -z-10 bg-gradient-to-t from-navy via-navy/60 to-navy/20"></div><div class="fog -z-10"></div><div class="vignette -z-10"></div>
+  <div class="mx-auto w-full max-w-6xl px-6 pb-12 pt-32">
+    <span class="chip">{{ d.category or 'Destination' }}</span>
+    <h1 class="h-display glow-text mt-4 text-4xl font-semibold sm:text-6xl">{{ d.name }}</h1>
+    <p class="mt-2 text-lg text-cyan">{{ d.location }}</p>
+    <div class="mt-7 flex flex-wrap items-center gap-3">
+      {% if vr_ready %}
+        <a class="btn-primary" href="{{ url_for('main.viewer', dest_id=d.id) }}">Explore in 3D</a>
+        <a class="btn-glass" href="{{ url_for('main.viewer', dest_id=d.id, vr=1) }}">Enter VR Mode</a>
+        <span class="chip">VR available: phone, Cardboard, WebXR</span>
+      {% else %}
+        <span class="btn-glass cursor-not-allowed opacity-60" aria-disabled="true">3D model coming soon</span>
+        <span class="chip border-white/20 bg-white/5 text-white/60">VR not available yet</span>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<section class="mx-auto grid max-w-6xl gap-10 px-6 py-16 lg:grid-cols-[1.4fr_1fr]">
+  <div>
+    <h2 class="h-display text-3xl font-semibold">The story</h2>
+    <div class="mt-5 space-y-4 text-lg leading-relaxed text-white/80">
+      {% for p in d.paragraphs %}<p>{{ p }}</p>{% endfor %}
+    </div>
+  </div>
+  <aside class="glass-strong h-fit p-6">
+    <h2 class="h-display text-xl font-semibold text-cyan">Featured hotspots</h2>
+    <ol class="mt-4 space-y-2">
+      {% for h in d.hotspots %}
+      <li class="flex items-start gap-3 text-white/80"><span class="mt-0.5 grid h-6 w-6 flex-none place-items-center rounded-full bg-cyan/20 text-xs text-cyan">{{ loop.index }}</span><span>{{ h.title }}</span></li>
+      {% endfor %}
+    </ol>
+    {% if vr_ready %}<a class="btn-primary mt-6 w-full" href="{{ url_for('main.viewer', dest_id=d.id) }}">Visit them in 3D</a>{% endif %}
+  </aside>
+</section>
+
+{% if gallery %}
+<section class="mx-auto max-w-6xl px-6 pb-10">
+  <h2 class="h-display text-3xl font-semibold">Photo gallery</h2>
+  <div class="mt-6 grid grid-cols-2 gap-4 md:grid-cols-3">
+    {% for g in gallery %}
+    <button type="button" class="glass card-hover group overflow-hidden text-left" data-lightbox="{{ url_for('static', filename=g.path) }}" data-caption="{{ g.caption }}">
+      <img src="{{ url_for('static', filename=g.path) }}" alt="{{ g.caption or d.name }}" loading="lazy" class="h-44 w-full object-cover transition duration-500 group-hover:scale-105 md:h-56">
+    </button>
+    {% endfor %}
+  </div>
+  <p class="mt-3 text-xs text-white/40">Photos: Wikimedia Commons, CC BY / CC BY-SA. See credits.</p>
+</section>
+<div id="lightbox" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/90 p-4" role="dialog" aria-modal="true" aria-label="Photo viewer">
+  <button id="lb-close" class="btn-glass absolute right-4 top-4" type="button">Close</button>
+  <figure class="max-h-full max-w-5xl"><img id="lb-img" alt="" class="max-h-[80vh] rounded-xl"><figcaption id="lb-cap" class="mt-3 text-center text-white/70"></figcaption></figure>
+</div>
+{% endif %}
+{% endblock %}
+{% block scripts %}
+<script>
+  (function () {
+    var lb = document.getElementById('lightbox'); if (!lb) return;
+    var img = document.getElementById('lb-img'), cap = document.getElementById('lb-cap');
+    function close() { lb.classList.add('hidden'); lb.classList.remove('flex'); document.body.classList.remove('lightbox-open'); }
+    document.querySelectorAll('[data-lightbox]').forEach(function (b) {
+      b.addEventListener('click', function () { img.src = b.dataset.lightbox; cap.textContent = b.dataset.caption || ''; lb.classList.remove('hidden'); lb.classList.add('flex'); document.body.classList.add('lightbox-open'); });
+    });
+    document.getElementById('lb-close').addEventListener('click', close);
+    lb.addEventListener('click', function (e) { if (e.target === lb) close(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+  })();
+</script>
+{% endblock %}

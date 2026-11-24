@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Your profile | VirtualTourism{% endblock %}
+{% block content %}
+<section class="relative grid min-h-[80svh] place-items-center overflow-hidden px-6 pt-24">
+  <div class="fog"></div>
+  <div class="glass-strong relative w-full max-w-md p-8 text-center">
+    {% if u.avatar_url %}<img src="{{ u.avatar_url }}" alt="" referrerpolicy="no-referrer" class="mx-auto h-28 w-28 rounded-full object-cover ring-2 ring-cyan" onerror="this.style.display='none';document.getElementById('av-fallback').classList.remove('hidden')">{% endif %}
+    <div id="av-fallback" class="{{ 'hidden' if u.avatar_url else '' }} mx-auto grid h-28 w-28 place-items-center rounded-full bg-gradient-to-br from-navy-700 to-cyan/40 text-5xl font-semibold ring-2 ring-cyan">{{ u.initial }}</div>
+    <h1 class="h-display mt-5 text-3xl font-semibold">{{ u.username }}</h1>
+    {% if u.email %}<p class="mt-1 text-sm text-white/50">{{ u.email }}</p>{% endif %}
+    <dl class="mt-6 space-y-3 text-left">
+      <div class="flex justify-between rounded-xl bg-white/5 px-4 py-3"><dt class="text-white/60">Signed in with</dt><dd class="font-medium capitalize">{{ u.provider.replace('-', ' ') }}</dd></div>
+      <div class="flex justify-between rounded-xl bg-white/5 px-4 py-3"><dt class="text-white/60">Joined</dt><dd class="font-medium">{{ u.created_at.strftime('%d %b %Y') if u.created_at else 'Unknown' }}</dd></div>
+    </dl>
+    <div class="mt-8 flex flex-wrap justify-center gap-3">
+      <a class="btn-primary" href="{{ url_for('main.explore') }}">Explore destinations</a>
+      <a class="btn-glass" href="{{ url_for('auth.logout') }}">Sign out</a>
+    </div>
+  </div>
+</section>
+{% endblock %}
