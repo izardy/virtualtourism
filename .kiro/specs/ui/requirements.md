@@ -36,3 +36,7 @@ The interface is modern, premium and tourism-focused, inspired by Apple Vision P
 #### Acceptance Criteria
 1. Pages SHALL load quickly: images lazy-loaded, no large UI libraries beyond Tailwind.
 2. Interactive elements SHALL be keyboard accessible with visible focus, and images SHALL have alt text.
+
+## Additional requirements (added during the build)
+- The visual direction SHALL be "Ghost Hill after dark": navy and cyan, glass panels, drifting fog, wisps, a flickering headline, vignette and film grain, all disabled under `prefers-reduced-motion`.
+- The viewer HUD SHALL stay usable on a 360 px tall landscape phone (scrollable help dialog, 44 px targets, hidden in Cardboard mode except Exit VR).

@@ -31,3 +31,6 @@
   - [x] 6.1 README section for registering OAuth apps and redirect URIs (local and deployed)
   - [ ] 6.2 Verify login, repeat login (no duplicate), denied consent and logout for each provider
   - _Requirements: 1-5_
+
+- [x] 7. Demo visitor login and judge admin key (`DEMO_LOGIN`, `DEMO_ADMIN_KEY`)
+- [ ] 8. Verify the three OAuth providers with real keys on the production domain

@@ -45,3 +45,12 @@ Wrap callback in try/except for `OAuthError` and network errors; flash "Login fa
 
 ## Testing
 Mock `normalize_profile` to test upsert and duplicate handling; manual login test per provider.
+
+## As built
+- `app/auth_providers.py` registers a provider only when both id and secret exist (`ENABLED_PROVIDERS`); `normalize_profile` returns `{provider_id, email, username, avatar_url}`.
+- Microsoft uses the `common` tenant; the callback passes `claims_options={"iss": {"essential": False}}` because the multi-tenant issuer contains a `{tenantid}` placeholder. Untested with real credentials.
+- GitHub: `read:user user:email`, with `/user/emails` fallback for a private email.
+- `next` redirects are restricted to same-site relative paths.
+- Demo access: `/login-demo` (normal user) and `/login-demo-admin?key=...` (admin, only when `DEMO_ADMIN_KEY` is set). Admin check: `ADMIN_EMAILS`, or provider `demo-admin` with a configured key.
+- `ProxyFix` is applied so OAuth redirect URIs use https behind a proxy; set `COOKIE_SECURE=1` in production.
+- Status: demo login, logout, 403 for non-admins and redirects were tested; Google, Microsoft and GitHub flows were not exercised (no credentials).

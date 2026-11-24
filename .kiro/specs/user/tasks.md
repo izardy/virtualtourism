@@ -19,3 +19,5 @@
   - [ ] 4.1 Confirm anonymous redirect and logged-in rendering for each provider
   - [ ] 4.2 Confirm missing avatar and missing email render correctly
   - _Requirements: 1, 3_
+
+- [ ] 5. Confirm the profile with each real OAuth provider after deployment

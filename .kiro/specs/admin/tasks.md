@@ -32,3 +32,6 @@
   - [x] 6.2 Reject bad extension and oversize file
   - [ ] 6.3 End to end: new destination with GLB and hotspot appears on explore and in the viewer
   - _Requirements: 1-5_
+
+- [ ] 7. Upload a real GLB through the admin panel and open it in the viewer (end-to-end)
+- [ ] 8. (Optional) 3D coordinate picker using the viewer's raycasting

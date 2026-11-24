@@ -25,3 +25,7 @@
   - [ ] 5.1 Load the placeholder on desktop and Android; check progress, spawn, teleport and FPS
   - [ ] 5.2 Load a Draco-compressed sample to verify decoder setup
   - _Requirements: 1-5_
+
+- [x] 6. As-built pipeline: build, props, export and optimize scripts; model in `app/static/models/`; `blender/README.md`
+- [ ] 7. Confirm provisional positions and the 9 m escape climb on site or with museum material
+- [ ] 8. Reduce materials and textures (prop atlas) for low-end phones

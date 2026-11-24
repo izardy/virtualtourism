@@ -27,3 +27,6 @@
   - [x] 5.1 Hover, fade and slide animations; reduced-motion support
   - [ ] 5.2 Check at 360/768/1280 px, landscape, keyboard focus and alt text
   - _Requirements: 3, 4, 6_
+
+- [x] 6. Costume Contest pass: night viewer, wisps, fog, vignette, flicker
+- [ ] 7. Check on a real phone and with a screen reader (alt text, focus order)

@@ -73,3 +73,19 @@ The core spec covers the Flask application skeleton, public pages (landing, expl
 #### Acceptance Criteria
 1. The app SHALL be deployable to Render, Railway or PythonAnywhere, with secrets read from environment variables.
 2. A README SHALL contain setup instructions.
+
+## Additional requirements (added during the build)
+
+### Requirement 10: Costume Contest theme
+**User Story:** As a Kiroween judge, I want a haunting but purposeful interface, so that the design supports the experience.
+1. The viewer SHALL default to night mode (dark scene, fog, lantern light, fireflies) with a day toggle.
+2. Ghost stories SHALL be labelled as folklore, and sensitive areas SHALL be introduced respectfully.
+3. The UI SHALL honour `prefers-reduced-motion`.
+
+### Requirement 11: Judge and demo access
+1. WHEN `DEMO_LOGIN=1` THEN the system SHALL offer "Continue as demo visitor" without any OAuth keys.
+2. WHEN `DEMO_ADMIN_KEY` is set THEN `/login-demo-admin?key=<key>` SHALL sign in an admin; with no key the route SHALL return 404.
+
+### Requirement 12: Hosting
+1. The app SHALL run under gunicorn (`wsgi:app --preload`) behind HTTPS in production; WebXR, device sensors and secure cookies require HTTPS (`localhost` also counts as secure).
+2. A live URL and a public GitHub repo with an OSI licence SHALL be available for Kiroween judging.

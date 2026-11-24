@@ -1,7 +1,7 @@
 # Design: UI Design System
 
 ## Overview
-A shared `base.html` layout with Tailwind (CDN with inline config for the MVP; optional CLI build to `static/css/app.css` for production) and a small `static/css/custom.css` for glass and animation utilities.
+A shared `base.html` layout with Tailwind compiled by the CLI to `static/css/app.css` (source `static/css/src.css`, config `tailwind.config.js`; no CDN) and a small `static/css/custom.css` for glass and animation utilities.
 
 ## Tokens
 ```js
@@ -42,3 +42,8 @@ Focus ring `ring-2 ring-cyan`, semantic landmarks, alt text, aria-labels on icon
 
 ## Testing
 Manual check at 360, 768 and 1280 px, landscape phone in the viewer, and with reduced motion enabled.
+
+## As built
+- Tokens in `tailwind.config.js` (navy, cyan, ghost, serif display font from system fonts, no web fonts). Components (`.glass`, `.btn-*`, `.chip`, `.input`, `.hud-btn`) live in `@layer components` so utilities such as `hidden` can override them.
+- Landing and destination heroes use the licensed entrance photo under gradient, fog and vignette layers. The viewer overlays a vignette, a flash on teleport and a split caption in Cardboard mode.
+- Verified in headless Edge at 1280x720, 390x780 (phone portrait) and 780x360 (phone landscape).

@@ -53,3 +53,13 @@ Priority order:
 - Prefer the user's own photos and CC0 textures. Do not use copyrighted images without permission.
 - Without user material, build a clearly labeled generic fortress placeholder and say it does not match the real site.
 - Re-check size and triangle budgets after every export and report the numbers.
+
+## As built (2026-11-25): status and lessons
+- The model exists: `blender/scripts/build_muzium.py` then `place_props.py` then `export_muzium.py` then `optimize_glb.sh` produce `app/static/models/muzium_perang.glb` (about 10.8 MB). See `blender/README.md` and the "As built" section of `.kiro/specs/blender/design.md`.
+- Hotspot positions for the database come from `blender/out/hotspots.json` (glTF axes). Provisional: memorial, escape route, lookout, Japanese tunnel, underground bunker. Never present them as surveyed.
+- Poly Haven models are scan quality: decimate every prop (a few hundred to a few thousand triangles) and build trees procedurally. Do not import `island_tree_*` or `coast_rocks_*` (1 to 2 million triangles).
+- Never run `gltf-transform optimize`, `flatten`, `join` or `prune` on the model: they delete the empty `hotspot_*`, `loc_*` and `spawn` nodes. Use `sh blender/scripts/optimize_glb.sh`.
+- Keep meshes merged per material (`struct_*` colliders, `floor_*` walkable) and keep the 15 MB budget (a hook warns on save).
+- Edit the scripts, not the `.blend`: the `.blend` is git-ignored and the scripts rebuild the scene.
+- When chaining statements with `;` on one line, never append a trailing comment before a later statement: it silently disables them.
+

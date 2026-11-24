@@ -21,3 +21,6 @@
   - [x] 4.1 Script or manual check that all referenced files exist
   - [ ] 4.2 In the viewer, open every hotspot and confirm text, image, facts and audio work
   - _Requirements: 2, 3, 4_
+
+- [x] 5. Generate narration audio, web-sized images and `CREDITS.md`
+- [ ] 6. Fact-check the destination and hotspot text against additional reliable sources; ask the museum for permission and its own photos

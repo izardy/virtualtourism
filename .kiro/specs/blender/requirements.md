@@ -37,3 +37,9 @@
 #### Acceptance Criteria
 1. A `docs/blender-export.md` SHALL document modelling conventions, export settings and the optimization workflow.
 2. The repo SHALL include a small placeholder GLB for Muzium Perang Penang so the demo works before the final model exists.
+
+## Additional requirements (added during the build)
+- The model SHALL be reproducible from scripts in `blender/scripts/` (build, props, export, optimize) without manual sculpting.
+- Third-party props SHALL be CC0 (Poly Haven) and decimated to a few hundred to a few thousand triangles; scene total SHOULD stay near 100k triangles.
+- Empty marker nodes (`spawn`, `hotspot_*`, `loc_*`) SHALL survive optimization.
+- Placement that is not confirmed (memorial, escape route, lookout, Japanese tunnel, bunker) SHALL be flagged `provisional` in `blender/out/hotspots.json`.

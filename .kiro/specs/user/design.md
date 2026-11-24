@@ -28,3 +28,6 @@ Uses the `users` table only; no new fields. Provider icons are inline SVGs in a 
 
 ## Testing
 Manual: log in with each provider and check the details; open `/profile` when logged out and confirm the redirect. Optional test client check for 302 when anonymous and 200 when logged in.
+
+## As built
+`profile.html` shows avatar (initials fallback), username, email if known, provider and joined date. Demo users appear as "demo" or "demo admin".

@@ -38,3 +38,14 @@
 
 - [x] 7. Demo verification
   - [ ] 7.1 Walk through the full flow on desktop and Android Cardboard
+
+- [x] 8. Night atmosphere and Costume Contest polish (fog, lantern, fireflies, flicker headline, wisps)
+  - _Requirements: 10_
+- [x] 9. Deployment preparation
+  - [x] 9.1 `wsgi.py`, `Procfile`, `render.yaml`, `.env.example`, MIT `LICENSE`, `.gitignore` that keeps `.kiro/`
+  - [x] 9.2 Fresh-database start under gunicorn with two workers (`--preload`)
+  - [x] 9.3 Commit and push to a public GitHub repository
+  - _Requirements: 9, 12_
+- [ ] 10. Deploy on the user's own server behind HTTPS (nginx or Caddy, systemd), then smoke-test the live URL
+- [ ] 11. Test on a real Android phone with Cardboard (`adb reverse` or an HTTPS tunnel for sensors)
+- [ ] 12. Record the 3 minute demo video and write the Kiro usage description

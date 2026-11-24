@@ -34,3 +34,7 @@ Users sign in with Google, Microsoft or GitHub. There are no local passwords. Fi
 1. Client IDs, secrets and `SECRET_KEY` SHALL be read from environment variables and never committed.
 2. Session cookies SHALL be `HttpOnly` and `SameSite=Lax`; `Secure` SHALL be enabled in production.
 3. Redirect URIs SHALL be documented in the README for each provider (local and deployed).
+
+## Additional requirements (added during the build)
+- WHEN no provider keys are set THEN login buttons for that provider SHALL be hidden, and the demo visitor login SHALL still work (when `DEMO_LOGIN=1`).
+- Demo users SHALL be stored with `provider = demo` (or `demo-admin`) so they are never confused with OAuth users.

@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#0A192F">
-  <title>{% block title %}VirtualTourism: explore heritage in 3D and VR{% endblock %}</title>
-  <meta name="description" content="Walk through real museums, forts and heritage sites in 3D and VR. First destination: Muzium Perang Penang, Ghost Hill after dark.">
+  <title>{% block title %}VirtualTourism: The Night Walk Chapter{% endblock %}</title>
+  <meta name="description" content="VirtualTourism: The Night Walk Chapter. Walk Muzium Perang Penang, Ghost Hill, after dark in 3D and VR on your phone, browser or Google Cardboard.">
   <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css') }}">
   {% block head %}{% endblock %}
@@ -52,7 +52,7 @@
 
   {% block footer %}
   <footer class="mt-24 border-t border-white/10 py-10 text-center text-sm text-white/50">
-    <p>Built for Kiroween 2026 with Kiro. Unofficial reconstruction made for education; not affiliated with the museum.</p>
+    <p>VirtualTourism: The Night Walk Chapter. Built for Kiroween 2026 with Kiro. Unofficial reconstruction made for education; not affiliated with the museum.</p>
     <p class="mt-1">Photos: Wikimedia Commons (CC BY / CC BY-SA). 3D props: Poly Haven (CC0). Map data: OpenStreetMap contributors. <a class="underline hover:text-cyan" href="{{ url_for('static', filename='images/CREDITS.md') }}">Credits</a></p>
   </footer>
   {% endblock %}

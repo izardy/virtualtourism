@@ -39,3 +39,10 @@ Server-side validation in each handler: required name/title, float parsing for c
 
 ## Testing
 Manual: add destination with GLB, add hotspot with image/audio, view it in the viewer. Optional tests for non-admin 403 and bad extension rejection.
+
+## As built
+- CSRF uses a per-session token (`session["_csrf"]`) checked in `before_request` for every POST; Flask-WTF was not needed.
+- Hotspot coordinates use glTF axes (x east, y up, z south). The form says so.
+- `delete_upload` only removes files with an 8-character hex prefix (admin uploads), never the bundled seed assets, and only when no record still uses them.
+- Tested with the Flask test client: non-admin 403, missing token 400, bad extension and non-numeric coordinate rejected, create and cascade delete clean up files. Not tested: uploading a real GLB and viewing it.
+- Optional 3D coordinate picker was not built.

@@ -45,3 +45,9 @@ Commit inside try/except with `db.session.rollback()` on failure; log and re-rai
 
 ## Testing
 Create an in-memory DB, run seed twice, assert 1 destination and 10 hotspots; delete the destination and assert 0 hotspots remain.
+
+## As built
+- Database file: `instance/virtualtourism.db` (Flask-SQLAlchemy resolves `sqlite:///virtualtourism.db` into the instance folder); override with `DATABASE_URL`.
+- Seed: `app/seed_data.py` holds the destination text, 10 hotspots (positions in glTF metres from the Blender export) and asset paths; `app/seed.py: seed_if_empty()` runs inside `create_app`.
+- Verified: a fresh database started under gunicorn with two workers (`--preload`) produced exactly 1 destination and 10 hotspots.
+- Deleting a destination cascades to its hotspots (`PRAGMA foreign_keys=ON` listener).

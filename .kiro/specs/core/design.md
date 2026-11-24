@@ -1,7 +1,7 @@
 # Design: Core Application and 3D/VR Experience
 
 ## Overview
-A monolithic Flask app with server-rendered Jinja templates and a small ES-module Three.js frontend. No build pipeline beyond Tailwind (CDN for the MVP, optional CLI build). SQLite for storage, local static files for assets.
+A monolithic Flask app with server-rendered Jinja templates and a small ES-module Three.js frontend. The Tailwind CSS is compiled with the CLI and committed (`app/static/css/app.css`), so the app has no CDN dependency and needs no Node to run. SQLite for storage, local static files for assets.
 
 ## Architecture
 ```
@@ -84,3 +84,22 @@ Env vars: `SECRET_KEY`, `DATABASE_URL` (default `sqlite:///virtualtourism.db`), 
 
 ## Testing
 Manual demo checklist on desktop Chrome and Android Chrome with Cardboard; optional pytest smoke tests for routes.
+
+## As built (2026-11-25)
+
+**Entry points.** `python app.py` for local runs (`PORT=5055` when 5000 is taken by AirPlay). `wsgi.py` exposes `app` for gunicorn because the package `app/` shadows `app.py`. `Procfile` and `render.yaml` use `gunicorn wsgi:app --preload`; `--preload` runs table creation and seeding once before workers fork.
+
+**Routes.** `/`, `/explore?q=`, `/destination/<id>`, `/viewer/<id>[?vr=1]`, `/profile`, `/admin/*`, `/api/destinations`, `/api/destinations/<id>/hotspots` (also returns `points_url` for `static/data/<model>_points.json`), `/login/<provider>`, `/auth/<provider>/callback`, `/login-demo`, `/login-demo-admin`, `/logout`, `/favicon.ico` (redirect).
+
+**Viewer modules (`app/static/js`).**
+- SceneManager: renderer, rig (body) and camera (head), night/day atmosphere (fog, moonlight, lantern spotlight, fireflies), adaptive quality (drops pixel ratio below 28 fps).
+- ModelLoader: GLTFLoader with Draco; indexes `floor_*`/`ground_*` (walkable), `struct_*` (colliders), `spawn`, `hotspot_*`, `loc_*`.
+- CameraController: mouse drag and touch look, tap and double-tap detection, gyroscope hand-over.
+- MovementSystem: WASD/arrows/Shift, joystick, auto-walk, ray-cast ground following, wall collision rays with sliding, slope limit, animated teleport, XR thumbstick locomotion.
+- HotspotManager: glowing markers with number badges, picking by screen, ray or gaze, visited tracking.
+- VRController: WebXR `immersive-vr` with controller teleport; fallback split-screen (`StereoEffect`) with device-orientation head tracking, recenter, gaze dwell of 1.4 s, tap to walk.
+- viewer.js: loading screen, hotspot panel (image, facts, narration), places drawer (10 hotspots plus all map locations), help overlay, toasts, progress counter.
+
+**Performance (measured).** Model 10.8 MB; 64 draw calls; about 83k triangles rendered at the start point; loads in about 8 s on a software renderer in headless Edge (a real GPU is faster). Images lazy-load; Three.js and Draco are vendored with a one-day cache header.
+
+**Pitfalls.** Flask caches templates when debug is off. `gunicorn app:app` fails. Gyroscope and WebXR need HTTPS. See `.kiro/steering/process-log.md`.

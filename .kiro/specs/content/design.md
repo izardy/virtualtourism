@@ -56,3 +56,9 @@ Coordinates come from `blender/out/hotspots.json`, produced by `blender/scripts/
 
 ## Testing
 Check that the seed produces 10 hotspots with titles matching the required list, that every referenced asset file exists, and that audio plays in the viewer panel.
+
+## As built
+- `app/seed_data.py`: 3-paragraph destination text and 10 hotspots, each with a description, three facts, a glTF position, an image (none for Command Centre and Observation Tower) and narration. Facts are hedged with "a sign on site says", "one source" or "estimate"; ghost stories are folklore.
+- Audio: `content/narration/<slug>.txt` rendered with macOS `say -v Daniel -r 160`, converted by ffmpeg to mono 48 kbps mp3 in `app/static/audio/`.
+- Images: Commons photos resized by `sips` to 1400 px hero, 640 px thumbnail, 900 px hotspots, 1100 px gallery; credits in `app/static/images/CREDITS.md`.
+- Gallery: hero, hotspot images and `app/static/images/gallery/<slug>/*.jpg`.
