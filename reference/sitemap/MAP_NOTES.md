@@ -12,6 +12,11 @@ The map is NOT north-up. It is rotated about 180 degrees: image-up = south, imag
 - Real-world context from OSM is in `osm_context.json` (coastline, roads, nearby buildings). OSM data is (c) OpenStreetMap contributors, ODbL.
 - Scale check: north-south fits about 0.25 m/px (the road is about 125 m north of the entrance). East-west is compressed on the map (coast about 260 m east of the entrance but only about 600 px away). Use 0.27 m/px for the fort core and place the real coastline from OSM.
 
+### Layout rotation (2026-11-26, superseded 2026-11-27)
+Superseded: on request, the layout now strictly follows the reeaki "Fort Relics" map as drawn (see "Strict sitemap layout" below). The 55° rotation described here is no longer applied.
+
+The 180° reading is still too coarse. Satellite imagery, the OSM footway (bearing about 145° from the ticket building), the OSM peak "Bukit Batu Maung" and the top view of the scale model (`site-model.jpg`) put the fort core a further 55° counter-clockwise. `build_muzium.py` applies `LAYOUT_ROT = 55°` around the ticket building to every point except pill box 2 and the road and coast facilities (`FIXED_PTS`, `FIXED_FAC`). `east_m`/`north_m` in the built scene are the rotated values; the map-derived ones are kept as `map_east_m`/`map_north_m`. Confidence: about ±15°.
+
 ## Facts printed on the map
 - Two eras: British fort 1930-1941, Japanese 1941-1945.
 - Opening hours on the map: daily 9.00am-6.00pm and 7.00pm-11.00pm (evening session; may be outdated).
@@ -52,3 +57,10 @@ Suggested change to hotspot content: add map-based extras as bonus hotspots late
 1. Orientation: resolved above (south-up). A satellite screenshot of the hill would still help to confirm the outline.
 2. Memorial and "Escape route" sign locations: still unknown. Google Street View could not be read (interactive app, no API access). Please send 2 or 3 Street View or phone screenshots of the memorial plaque and the escape route sign, with the nearest map number.
 3. Scope: read as all 37 numbered points plus facilities. The 10 hotspots stay the interactive ones; the other points become labeled structures and props.
+
+## Strict sitemap layout (2026-11-27)
+- Source: https://i0.wp.com/reeaki.com/wp-content/uploads/2021/03/photo_2021-03-24_12-51-55.jpg (1242×577, a photo of the "Fort Relics" board). The private copy is `reference/inbox/reeaki_map.jpg` (git-ignored).
+- `blender/scripts/extract_reeaki.py` writes `reeaki_layout.json`, which holds derived numbers only. Its check images, `reeaki_check.jpg` and `reeaki_preview.png`, are git-ignored.
+- Marker pixels on the reeaki photo (read by eye, ±2 px) are in `MARKERS` in the script. Point 32 is 27 px off in `site_layout.json` (the white-disc detector on the 2048 map found it at 1237, 360). The reeaki values are used now.
+- The reeaki map shows four coast pill boxes, a sand bar with the jetty, and no coast armoury. The old map listed three pill boxes and an armoury.
+- Coast dots sit a few metres off the drawn shoreline. The extractor moves each one to the nearest land, 5 m from the water (at most 10 m, Pill Box D).

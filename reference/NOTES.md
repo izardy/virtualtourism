@@ -96,3 +96,17 @@ Source: https://thesmartlocal.my/penang-war-museum/ (travel site, medium reliabi
 | photos/escape-route/ref-escape-sign-web.jpg | "Escape route to top" sign, "7 meters crawl, 9 meters climb", "You can do it" |
 | photos/escape-route/ref-escape-shaft-web.jpg | Vertical ladder shaft seen from below, a visitor climbing |
 Ask the owners for permission before any of these appear in the app. For the app, use the CC BY photo photos/escape-route/escape-shaft-ladder-commons.jpg instead.
+
+## Building research (2026-11-26)
+Question: building dimensions and interiors. Finding: no measured drawings, plans or dimensions are published online. The model's sizes are inferred from the photos in `photos/` and from the standard layout of a 1930s British 6-inch BL coast battery.
+- penang.fandom (Penang War Museum page): built on Punjab Hill. Lists cannon and anti-aircraft firing bays, a command centre, a prison, sleeping quarters, a cookhouse and pillboxes, linked by tunnels.
+- MSN travel article: built 1930 to 1939 on about 8 ha.
+- malaysia-traveller.com: a 6-inch breech-loading gun stood in a concrete gun firing bay.
+- thesmartlocal.my: observation post with a 320° view (see round 2 above).
+- travelmalaysia: dark tunnels where visitors crouch, and ladders. The site blocks scripted downloads, so only the search snippet was read.
+- The Island Drum (2022 blog): a main covered walkway; dim exhibition rooms off a hallway; the crawl tunnel ends at a ladder to the hilltop with stairs beside it.
+- The Planet's Journal (2013 blog): visitor photos and description of the tunnels and cells.
+- Axis History Forum: Penang's forts follow the same pattern as the Singapore Naval Base defences.
+- Pasir Laba Battery and Heugh Battery pages (fortsiloso archive, read through web.archive.org): two 6-inch emplacements with an underground magazine between them. Used as the template for the gun bays at points 25 and 36.
+- Not useful: the UiTM paper (dark tourism, no architecture); Wikipedia (fetch failed); travelfish (blocks downloads); Wikimedia Commons (only the 22 photos already in `photos/`).
+- Still wanted: tape measurements of a gun bay, a cell and a barracks room from a site visit, or the museum's own plans (see "Measurements" above).

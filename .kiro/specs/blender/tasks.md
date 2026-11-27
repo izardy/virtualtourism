@@ -6,7 +6,7 @@
 
 - [x] 2. Placeholder model
   - [x] 2.1 Produce `static/models/muzium_perang.glb` (ground, simple buildings, tunnel, `floor_*` names, `spawn` empty), via Blender script or a Three.js GLTFExporter script
-  - [x] 2.2 Confirm file size is under the 15 MB target
+  - [x] 2.2 Confirm file size is under the size target (15 MB at first, 40 MB after the realism pass)
   - _Requirements: 3, 4, 6_
 
 - [x] 3. ModelLoader
@@ -29,3 +29,5 @@
 - [x] 6. As-built pipeline: build, props, export and optimize scripts; model in `app/static/models/`; `blender/README.md`
 - [ ] 7. Confirm provisional positions and the 9 m escape climb on site or with museum material
 - [ ] 8. Reduce materials and textures (prop atlas) for low-end phones
+
+- [x] 9. Tour routes script (`build_tour_paths.py`), observation post stairs gap

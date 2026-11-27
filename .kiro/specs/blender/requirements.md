@@ -17,7 +17,7 @@
 
 ### Requirement 3: Optimization budgets
 #### Acceptance Criteria
-1. Each destination model SHOULD be under 15 MB (hard cap 50 MB) and under about 150k triangles.
+1. Each destination model SHOULD be under 40 MB (hard cap 50 MB) and under about 1.1M triangles drawn per view (scene total about 2.1M with distance-culled trees; raised from 15 MB and 150k on 2026-11-25 at the user's request for more realism).
 2. Textures SHOULD be at most 2048 px (1024 px for props), with a limited number of materials (target under 30).
 3. Models SHOULD use meshes merged by material and instances for repeated objects.
 
@@ -40,6 +40,6 @@
 
 ## Additional requirements (added during the build)
 - The model SHALL be reproducible from scripts in `blender/scripts/` (build, props, export, optimize) without manual sculpting.
-- Third-party props SHALL be CC0 (Poly Haven) and decimated to a few hundred to a few thousand triangles; scene total SHOULD stay near 100k triangles.
+- Third-party props SHALL be CC0 (Poly Haven) and decimated to a few hundred to a few thousand triangles; trees are the exception (see the tree tiers in design.md).
 - Empty marker nodes (`spawn`, `hotspot_*`, `loc_*`) SHALL survive optimization.
 - Placement that is not confirmed (memorial, escape route, lookout, Japanese tunnel, bunker) SHALL be flagged `provisional` in `blender/out/hotspots.json`.

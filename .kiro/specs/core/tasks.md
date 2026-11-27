@@ -49,3 +49,11 @@
 - [ ] 10. Deploy on the user's own server behind HTTPS (nginx or Caddy, systemd), then smoke-test the live URL
 - [ ] 11. Test on a real Android phone with Cardboard (`adb reverse` or an HTTPS tunnel for sensors)
 - [ ] 12. Record the 3 minute demo video and write the Kiro usage description
+
+- [x] 13. Two ways to explore
+  - [x] 13.1 Compute tour routes in Blender (A*) and write `muzium_perang_tour.json`
+  - [x] 13.2 `GuidedTour.js` state machine, comfort fades, intro and outro narration
+  - [x] 13.3 Mode picker, HUD toggle, tour bar, end card, `?mode=` links on landing and destination pages
+  - [x] 13.4 Browser test of the whole tour at 10x speed, phone landscape and Cardboard
+  - [ ] 13.5 Try the guided tour on a real Android phone in Cardboard and on a WebXR headset
+  - _Requirements: 13_

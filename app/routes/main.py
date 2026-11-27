@@ -1,5 +1,5 @@
 import os
-from flask import Blueprint, abort, current_app, render_template, request
+from flask import Blueprint, abort, current_app, render_template, request, url_for
 from ..extensions import db
 from ..models import Destination
 
@@ -58,4 +58,10 @@ def viewer(dest_id):
     dest = db.session.get(Destination, dest_id) or abort(404)
     if not dest.model_path:
         abort(404)
-    return render_template("viewer.html", d=dest, vr_auto=request.args.get("vr") == "1")
+    mode = request.args.get("mode")
+    # lighter phone model next to the main one (<name>_mobile.glb: 1k textures, cheaper trees), if it exists
+    stem, ext = os.path.splitext(dest.model_path)
+    lite = f"{stem}_mobile{ext}"
+    model_lite = url_for("static", filename=lite) if os.path.isfile(os.path.join(current_app.root_path, "static", lite)) else ""
+    return render_template("viewer.html", d=dest, vr_auto=request.args.get("vr") == "1", mode=mode if mode in ("free", "guided") else "",
+                           model_lite=model_lite)

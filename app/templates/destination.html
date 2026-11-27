@@ -10,8 +10,9 @@
     <p class="mt-2 text-lg text-cyan">{{ d.location }}</p>
     <div class="mt-7 flex flex-wrap items-center gap-3">
       {% if vr_ready %}
-        <a class="btn-primary" href="{{ url_for('main.viewer', dest_id=d.id) }}">Explore in 3D</a>
-        <a class="btn-glass" href="{{ url_for('main.viewer', dest_id=d.id, vr=1) }}">Enter VR Mode</a>
+        <a class="btn-primary" href="{{ url_for('main.viewer', dest_id=d.id, mode='guided') }}">Guided night tour</a>
+        <a class="btn-glass" href="{{ url_for('main.viewer', dest_id=d.id, mode='free') }}">Explore on your own</a>
+        <a class="btn-glass" href="{{ url_for('main.viewer', dest_id=d.id, mode='guided', vr=1) }}">Enter VR Mode</a>
         <span class="chip">VR available: phone, Cardboard, WebXR</span>
       {% else %}
         <span class="btn-glass cursor-not-allowed opacity-60" aria-disabled="true">3D model coming soon</span>
@@ -35,7 +36,7 @@
       <li class="flex items-start gap-3 text-white/80"><span class="mt-0.5 grid h-6 w-6 flex-none place-items-center rounded-full bg-cyan/20 text-xs text-cyan">{{ loop.index }}</span><span>{{ h.title }}</span></li>
       {% endfor %}
     </ol>
-    {% if vr_ready %}<a class="btn-primary mt-6 w-full" href="{{ url_for('main.viewer', dest_id=d.id) }}">Visit them in 3D</a>{% endif %}
+    {% if vr_ready %}<a class="btn-primary mt-6 w-full" href="{{ url_for('main.viewer', dest_id=d.id, mode='guided') }}">Hear them on the guided tour</a>{% endif %}
   </aside>
 </section>
 

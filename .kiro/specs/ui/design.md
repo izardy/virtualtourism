@@ -47,3 +47,26 @@ Manual check at 360, 768 and 1280 px, landscape phone in the viewer, and with re
 - Tokens in `tailwind.config.js` (navy, cyan, ghost, serif display font from system fonts, no web fonts). Components (`.glass`, `.btn-*`, `.chip`, `.input`, `.hud-btn`) live in `@layer components` so utilities such as `hidden` can override them.
 - Landing and destination heroes use the licensed entrance photo under gradient, fog and vignette layers. The viewer overlays a vignette, a flash on teleport and a split caption in Cardboard mode.
 - Verified in headless Edge at 1280x720, 390x780 (phone portrait) and 780x360 (phone landscape).
+
+## As built: guided tour UI
+Start screen with two glass cards (the guided card is highlighted for `?mode=guided`, with a "Best for VR" chip for `&vr=1`); a HUD button that switches modes; a bottom tour bar (Prev, Pause or Resume, Next, "Stop n of 10: title", progress bar, Free walk) hidden in Cardboard mode; a "Drag to look around" hint; an end card. HUD buttons never wrap (`whitespace-nowrap`) and the centred title only shows from 1024 px wide so the bar fits a 780x360 phone in landscape.
+
+## As built: opening flight (2026-11-27)
+Request: "when start the game it camera from top and slowly go to entrance".
+
+- `app/static/js/IntroFlight.js` runs once the model has loaded.
+  - **Path:** the camera starts 175 m above the middle of the site, which is the centre of the hotspot markers. It glides down along a cubic Bezier curve and passes under the WAR MUSEUM gate sign. It ends at the spawn point at eye height, facing the start direction.
+  - **Look target:** the camera first looks at the fort, then turns toward the view ahead of the visitor.
+  - **Timing:** 11 s of wall-clock time, so a slow device gets the same length rather than a slower flight.
+  - **Fog and trees:** fog is thinned to 12% while high up and back to full near the ground. The viewer shows all tree chunks (650 m reach) during the flight.
+  - **While it plays:** movement and look controls, fireflies and the HUD are off, and the proximity hints are paused.
+- **Title card** (`#intro` in `viewer.html`): "VirtualTourism", "The Night Walk Chapter" and the destination name, with a **Skip intro** button. Any key or tap also skips.
+- **After the flight:** the mode picker, or free walk, appears as before.
+- **Skipped when:** `?intro=0` is set, the user prefers reduced motion, or the browser is automated (`navigator.webdriver`), so the test scripts drive the camera themselves. `?intro=1` forces it on.
+- **Fix found on the way:** `MovementSystem.placeAt()` cast its ray from 60 m up with a 40 m reach. It missed the ground, so the visitor started 2 m in the air and dropped. The reach is now 140 m.
+- **Checked in headless Edge:**
+  - Frozen frames at 0, 30, 55, 75, 90 and 100% of the flight, at night and by day.
+  - The end pose is the spawn point, the controls come back on, and the fog and fireflies are restored.
+  - Skip works.
+  - The float, door, chunk, tour and phone checks pass.
+- **Not yet tested:** smoothness on a real phone. From the top, the phone draws the whole site for those 11 s.

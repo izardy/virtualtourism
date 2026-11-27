@@ -38,7 +38,7 @@ export class HotspotManager {
       g.position.set(h.position[0], h.position[1], h.position[2]);
       const core = new THREE.Mesh(new THREE.SphereGeometry(0.2, 16, 12), new THREE.MeshBasicMaterial({ color: 0x00d4ff, fog: false }));
       const halo = new THREE.Sprite(new THREE.SpriteMaterial({ map: this._glow, color: 0x00d4ff, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, fog: false }));
-      halo.scale.setScalar(2.4);
+      halo.scale.setScalar(1.7);
       const beam = new THREE.Mesh(new THREE.CylinderGeometry(0.025, 0.025, 4, 6, 1, true),
         new THREE.MeshBasicMaterial({ color: 0x00d4ff, transparent: true, opacity: 0.35, blending: THREE.AdditiveBlending, depthWrite: false, fog: false }));
       beam.position.y = 2.0;
@@ -55,7 +55,7 @@ export class HotspotManager {
   _animate(t) {
     for (const it of this.items) {
       const s = 1 + Math.sin(t * 2.2 + it.phase) * 0.12;
-      it.halo.scale.setScalar(2.4 * s);
+      it.halo.scale.setScalar(1.7 * s);
       it.group.position.y = it.baseY + Math.sin(t * 1.4 + it.phase) * 0.08;
     }
   }

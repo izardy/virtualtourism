@@ -25,17 +25,23 @@ export class MovementSystem {
     window.addEventListener('blur', () => this.keys.clear());
   }
 
-  groundAt(x, z, fromY) {
+  groundAt(x, z, fromY, far = 40) {
     this._ray.set(this._tmp.set(x, fromY, z), new THREE.Vector3(0, -1, 0));
-    this._ray.far = 40;
+    this._ray.far = far;
     const hit = this._ray.intersectObjects(this.walkables, false)[0];
     return hit ? hit.point.y : null;
   }
 
   /** Put the visitor on the ground at (x, z); y is found by ray casting from high above. */
   placeAt(x, z, hintY = 30) {
-    const y = this.groundAt(x, z, hintY + 60);
-    this.pos.set(x, y ?? hintY, z);
+    const y = this.groundAt(x, z, hintY + 60, 140);              // the ray starts 60 m up, so it must reach further than 40 m
+    this.pos.set(x, y ?? hintY, z); this._targetY = this.pos.y;
+    this.sm.rig.position.copy(this.pos);
+  }
+
+  /** Put the visitor at an exact position (used by the guided tour). */
+  setPose(x, y, z) {
+    this.pos.set(x, y, z); this._tween = null; this._targetY = y;
     this.sm.rig.position.copy(this.pos);
   }
 

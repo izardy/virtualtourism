@@ -16,7 +16,7 @@ body { background: radial-gradient(1200px 600px at 70% -10%, rgba(0,212,255,.10)
   .chip { @apply inline-block rounded-full border border-cyan/30 bg-cyan/10 px-3 py-1 text-xs font-medium tracking-wide text-cyan; }
   .input { @apply w-full rounded-xl border border-white/15 bg-navy-900/70 px-4 py-3 text-white placeholder-white/40 focus:border-cyan focus:outline-none focus:ring-1 focus:ring-cyan min-h-[44px]; }
   .label { @apply mb-1 block text-sm text-white/70; }
-  .hud-btn { @apply glass inline-flex h-11 min-w-[44px] items-center justify-center gap-2 px-4 text-sm font-medium text-white hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan; border-radius: 9999px; }
+  .hud-btn { @apply glass inline-flex whitespace-nowrap h-11 min-w-[44px] items-center justify-center gap-2 px-4 text-sm font-medium text-white hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan; border-radius: 9999px; }
   .h-display { font-family: "Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif; letter-spacing: .01em; }
 }
 

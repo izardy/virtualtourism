@@ -11,9 +11,11 @@ Hackathon web app for walking real heritage sites in 3D and VR. First destinatio
 ## Stack and layout (as built)
 - Flask 3, Flask-SQLAlchemy (SQLite in `instance/virtualtourism.db`), Flask-Login, Authlib, Jinja, compiled TailwindCSS (`app/static/css/app.css`), Three.js r170 vendored in `app/static/js/vendor/`.
 - Entry points: `python app.py` (local, `PORT=5055` if 5000 is busy) and `gunicorn wsgi:app --preload` (production). Do not use `gunicorn app:app`: the package `app/` shadows `app.py`.
-- Modules in `app/static/js/`: SceneManager, ModelLoader, CameraController, MovementSystem, HotspotManager, VRController, viewer.js.
-- 3D model: `app/static/models/muzium_perang.glb` (about 10.8 MB), built by `blender/scripts/` through the Blender MCP. Raw assets are not in git.
-- Blender node conventions: walkable `floor_*` / `ground_*`, colliders `struct_*`, `spawn`, `hotspot_<slug>`, `loc_*`. glTF axes: x east, y up, z south.
+- Modules in `app/static/js/`: SceneManager, ModelLoader, CameraController, MovementSystem, HotspotManager, VRController, GuidedTour, IntroFlight (opening flight; `?intro=0` off, `?intro=1` forces it in automated browsers), viewer.js.
+- Two exploration modes: free (full control) and guided night tour (about 8 minutes, look-around only, fade hops in VR). Route data: `app/static/data/muzium_perang_tour.json`, computed by `blender/scripts/build_tour_paths.py`; regenerate it after any model or hotspot change.
+- 3D model: `app/static/models/muzium_perang.glb` (desktop, 2k Poly Haven textures, small props at 512 px, 37.8 MB, 40 MB budget) and `muzium_perang_mobile.glb` (phones, 1k textures, cheaper trees, 15.3 MB; chosen by `viewer.js pickModel()`, `?quality=full|lite` overrides), built by `blender/scripts/` through the Blender MCP. Rebuild both after any model change (`export_mobile.py`, `optimize_glb.sh mobile`). Raw assets are not in git.
+- Blender node conventions: walkable `floor_*` / `ground_*`, colliders `struct_*`, `spawn`, `hotspot_<slug>`, `loc_*` (with a `rot` property). glTF axes: x east, y up, z south.
+- Layout: strictly follows the reeaki "Fort Relics" visitor map (`reference/inbox/reeaki_map.jpg`, private). Run `blender/scripts/extract_reeaki.py` to produce `reference/sitemap/reeaki_layout.json`, then the Blender pipeline. Do not reintroduce the satellite rotation unless asked.
 
 ## Rules for working in this repo
 - Secrets only in environment variables (`.env` is git-ignored). Never commit them.
@@ -26,5 +28,5 @@ Hackathon web app for walking real heritage sites in 3D and VR. First destinatio
 - Do not add tests unless asked.
 - Design: dark mode, Deep Blue `#0A192F`, Cyan `#00D4FF`, White `#FFFFFF`, glassmorphism, spooky night atmosphere.
 
-## Status (2026-11-25)
-Built and tested locally in a browser (desktop, touch emulation, Cardboard split-screen). Committed and pushed to GitHub. Not yet verified: OAuth with real keys, a real Android/Cardboard device, deployment on the user's own server. Model positions for memorial, escape route, lookout, Japanese tunnel and bunker are provisional.
+## Status (2026-11-27)
+Built and tested locally in a browser (desktop, touch emulation, Cardboard split-screen), including the guided tour end to end. Since commit `f1f4f43` the work is local and uncommitted: narration, guided tour, realism passes, ambience, Poly Haven phone model, building detail, and the strict reeaki sitemap layout. Not yet verified: OAuth with real keys, a real Android/Cardboard device, deployment on the user's own server. Model positions for memorial, escape route, lookout, Japanese tunnel and bunker are provisional.

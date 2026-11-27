@@ -30,3 +30,5 @@
 
 - [x] 6. Costume Contest pass: night viewer, wisps, fog, vignette, flicker
 - [ ] 7. Check on a real phone and with a screen reader (alt text, focus order)
+
+- [x] 8. Guided tour UI (picker, tour bar, end card, hint) and landscape phone fixes

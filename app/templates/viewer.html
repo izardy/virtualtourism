@@ -17,11 +17,14 @@
 <body class="overflow-hidden bg-navy-900 font-sans text-white select-none">
 <div id="app" class="fixed inset-0"
      data-model="{{ url_for('static', filename=d.model_path) }}"
+     data-model-lite="{{ model_lite }}"
      data-api="{{ url_for('api.hotspots', dest_id=d.id) }}"
      data-back="{{ url_for('main.destination', dest_id=d.id) }}"
      data-draco="{{ url_for('static', filename='js/vendor/draco/') }}"
      data-static="{{ url_for('static', filename='') }}"
-     data-auto-vr="{{ '1' if vr_auto else '0' }}">
+     data-hdri="{{ url_for('static', filename='hdri/') }}"
+     data-auto-vr="{{ '1' if vr_auto else '0' }}"
+     data-mode="{{ mode }}">
 
   <div id="stage" class="absolute inset-0"></div>
   <div id="night-vignette" class="vignette pointer-events-none"></div>
@@ -46,9 +49,11 @@
     <div class="pointer-events-auto flex gap-2">
       <a class="hud-btn" href="{{ url_for('main.destination', dest_id=d.id) }}" aria-label="Back to destination page">&larr; <span class="hidden sm:inline">Back</span></a>
       <button id="btn-places" class="hud-btn" type="button" aria-expanded="false" aria-controls="drawer">Places</button>
+      <button id="btn-mode" class="hud-btn hidden" type="button" title="Switch between guided tour and free walking">Guided tour</button>
     </div>
-    <div class="pointer-events-none hidden text-center sm:block"><p class="h-display glow-text text-lg">{{ d.name }}</p><p id="progress-text" class="text-xs text-white/60"></p></div>
+    <div class="pointer-events-none hidden text-center lg:block"><p class="h-display glow-text text-lg">{{ d.name }}</p><p id="progress-text" class="text-xs text-white/60"></p></div>
     <div class="pointer-events-auto flex gap-2">
+      <button id="btn-sound" class="hud-btn" type="button" aria-pressed="true" title="Toggle night ambience: insects, waves, wind">Sound on</button>
       <button id="btn-night" class="hud-btn" type="button" aria-pressed="true" title="Toggle night and day">Night</button>
       <button id="btn-help" class="hud-btn" type="button" aria-label="Help">?</button>
       <button id="btn-vr" class="hud-btn !bg-cyan !text-navy font-semibold" type="button">Enter VR Experience</button>
@@ -56,6 +61,14 @@
   </div>
 
   <div id="toast" class="pointer-events-none absolute bottom-24 left-1/2 z-30 -translate-x-1/2 rounded-full border border-cyan/30 bg-navy-900/80 px-4 py-2 text-sm opacity-0 backdrop-blur transition-opacity"></div>
+
+  <!-- opening flight: title card and skip button over the moving view -->
+  <div id="intro" class="pointer-events-none absolute inset-x-0 bottom-0 z-30 hidden flex-col items-center gap-2 px-6 pb-[max(2.5rem,env(safe-area-inset-bottom))] text-center opacity-0 transition-opacity duration-1000">
+    <p class="chip">VirtualTourism</p>
+    <h2 class="h-display glow-text text-2xl font-semibold sm:text-4xl">The Night Walk Chapter</h2>
+    <p class="text-sm text-white/70">{{ d.name }}</p>
+    <button id="intro-skip" class="btn-glass pointer-events-auto mt-3 !min-h-[40px] !py-2 text-sm" type="button">Skip intro</button>
+  </div>
   <button id="btn-vr-exit" class="hud-btn absolute left-1/2 top-3 z-30 hidden -translate-x-1/2" type="button">Exit VR</button>
   <div id="reticle" class="pointer-events-none absolute left-1/2 top-1/2 z-10 hidden h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/80 bg-cyan/50"></div>
 
@@ -87,11 +100,59 @@
     </div>
   </aside>
 
+  <!-- how do you want to explore? -->
+  <div id="mode-picker" class="absolute inset-0 z-30 hidden place-items-center overflow-y-auto bg-navy-900/80 p-3 backdrop-blur-sm sm:p-6" role="dialog" aria-modal="true" aria-labelledby="picker-title">
+    <div class="my-auto w-full max-w-3xl">
+      <h2 id="picker-title" class="h-display glow-text text-center text-2xl font-semibold sm:text-4xl">How do you want to explore?</h2>
+      <p class="mt-2 text-center text-sm text-white/60">You can switch at any time with the button at the top.</p>
+      <div class="mt-5 grid gap-4 sm:grid-cols-2">
+        <button id="pick-guided" type="button" class="glass-strong card-hover relative p-5 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan">
+          <span id="pick-vr-badge" class="chip absolute right-4 top-4 hidden">Best for VR</span>
+          <h3 class="h-display text-xl text-cyan sm:text-2xl">Guided night tour</h3>
+          <p class="mt-1 text-sm text-white/50">About 8 minutes &middot; sit back</p>
+          <p class="mt-3 text-white/80">A narrator walks you through all ten stories. You cannot steer, but you can look around freely. In a headset the guide moves with soft fades to keep you comfortable.</p>
+        </button>
+        <button id="pick-free" type="button" class="glass-strong card-hover p-5 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan">
+          <h3 class="h-display text-xl text-cyan sm:text-2xl">Explore on your own</h3>
+          <p class="mt-1 text-sm text-white/50">At your own pace &middot; full control</p>
+          <p class="mt-3 text-white/80">Walk anywhere with the keyboard, mouse or touch joystick, teleport, and open the glowing stories in any order.</p>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- guided tour controls -->
+  <div id="tour-bar" class="no-stereo absolute bottom-[max(0.75rem,env(safe-area-inset-bottom))] left-1/2 z-20 hidden max-w-[96vw] -translate-x-1/2 items-center gap-2 glass-strong px-3 py-2">
+    <button id="tour-prev" class="hud-btn" type="button" aria-label="Previous stop">Prev</button>
+    <button id="tour-pause" class="hud-btn" type="button" aria-label="Pause or resume the tour">Pause</button>
+    <button id="tour-next" class="hud-btn" type="button" aria-label="Next stop">Next</button>
+    <div class="mx-1 min-w-[8rem] text-center sm:min-w-[11rem]">
+      <p id="tour-label" class="truncate text-sm font-medium" aria-live="polite"></p>
+      <div class="mt-1 h-1 rounded bg-white/10"><div id="tour-progress" class="progress-bar h-1 w-0 rounded transition-all duration-500"></div></div>
+    </div>
+    <button id="tour-exit" class="hud-btn" type="button">Free walk</button>
+  </div>
+  <div id="tour-hint" class="pointer-events-none absolute left-1/2 top-16 z-20 hidden -translate-x-1/2 rounded-full border border-white/15 bg-navy-900/70 px-4 py-1 text-xs text-white/70 backdrop-blur no-stereo">Drag to look around</div>
+
+  <div id="tour-end" class="absolute inset-0 z-30 hidden place-items-center bg-navy-900/85 p-4 backdrop-blur-sm">
+    <div class="glass-strong max-w-md p-6 text-center sm:p-8">
+      <p class="chip">The Night Walk is over</p>
+      <h2 class="h-display glow-text mt-3 text-3xl font-semibold">Thank you for walking with us</h2>
+      <p class="mt-3 text-white/75">Stay and explore on your own, or take the tour again.</p>
+      <div class="mt-6 flex flex-wrap justify-center gap-3">
+        <button id="end-free" class="btn-primary" type="button">Explore on your own</button>
+        <button id="end-again" class="btn-glass" type="button">Restart the tour</button>
+        <a class="btn-glass" href="{{ url_for('main.destination', dest_id=d.id) }}">Back</a>
+      </div>
+    </div>
+  </div>
+
   <!-- help -->
   <div id="help" class="absolute inset-0 z-40 hidden place-items-center overflow-y-auto bg-black/70 p-3 sm:p-6">
     <div class="glass-strong my-auto max-h-[94svh] max-w-md overflow-y-auto p-4 sm:p-6">
       <h2 class="h-display text-2xl text-cyan">How to explore</h2>
       <ul class="mt-4 space-y-2 text-white/85">
+        <li><strong>Guided tour:</strong> the guide walks for you. Drag (or turn your head) to look around, and use Prev, Pause and Next at the bottom.</li>
         <li><strong>Desktop:</strong> W A S D or arrow keys to walk, hold Shift to run, drag the mouse to look.</li>
         <li><strong>Phone:</strong> left joystick to walk, drag anywhere else to look.</li>
         <li><strong>Teleport:</strong> double-click or double-tap the ground.</li>

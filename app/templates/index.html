@@ -14,9 +14,10 @@
     <h1 class="h-display glow-text fade-up mt-5 max-w-3xl text-5xl font-semibold leading-[1.05] sm:text-7xl" style="animation-delay:.1s">Walk <span class="text-cyan flicker">Ghost Hill</span> after dark.</h1>
     <p class="fade-up mt-6 max-w-2xl text-lg text-white/75" style="animation-delay:.2s">Step inside Muzium Perang Penang: a 1930s coastal fort, a wartime prison, and a hill locals call Bukit Hantu. Explore it in 3D on your phone, in your browser, or through a Google Cardboard headset.</p>
     <div class="fade-up mt-9 flex flex-wrap gap-3" style="animation-delay:.3s">
-      {% if featured %}<a class="btn-primary" href="{{ url_for('main.viewer', dest_id=featured.id) }}">Enter the fort in 3D</a>
-      <a class="btn-glass" href="{{ url_for('main.viewer', dest_id=featured.id, vr=1) }}">Enter VR experience</a>{% endif %}
-      <a class="btn-glass" href="{{ url_for('main.explore') }}">Explore destinations</a>
+      {% if featured %}<a class="btn-primary" href="{{ url_for('main.viewer', dest_id=featured.id, mode='guided') }}">Start the guided night tour</a>
+      <a class="btn-glass" href="{{ url_for('main.viewer', dest_id=featured.id, mode='free') }}">Explore on your own</a>
+      <a class="btn-glass" href="{{ url_for('main.viewer', dest_id=featured.id, mode='guided', vr=1) }}">Enter VR experience</a>{% endif %}
+      <a class="btn-glass" href="{{ url_for('main.explore') }}">All destinations</a>
     </div>
     <div id="signin" class="fade-up glass mt-12 max-w-2xl p-5" style="animation-delay:.4s">
       {% if current_user.is_authenticated %}
@@ -40,7 +41,8 @@
       <p class="mt-4 text-white/75">{{ featured.paragraphs[0] if featured.paragraphs }}</p>
       <div class="mt-6 flex flex-wrap gap-3">
         <a class="btn-primary" href="{{ url_for('main.destination', dest_id=featured.id) }}">Discover the story</a>
-        <a class="btn-glass" href="{{ url_for('main.viewer', dest_id=featured.id) }}">Explore in 3D</a>
+        <a class="btn-glass" href="{{ url_for('main.viewer', dest_id=featured.id, mode='guided') }}">Guided tour</a>
+        <a class="btn-glass" href="{{ url_for('main.viewer', dest_id=featured.id, mode='free') }}">Explore in 3D</a>
       </div>
     </div>
   </div>
@@ -50,7 +52,7 @@
 <section class="mx-auto max-w-6xl px-6 py-10">
   <h2 class="h-display text-3xl font-semibold sm:text-4xl">Heritage you can step into</h2>
   <div class="mt-8 grid gap-5 md:grid-cols-3">
-    <article class="glass card-hover p-6"><h3 class="h-display text-xl text-cyan">Walk it</h3><p class="mt-2 text-white/70">Move with WASD or touch controls, or teleport. A lantern lights your way through tunnels, gun bays and barracks.</p></article>
+    <article class="glass card-hover p-6"><h3 class="h-display text-xl text-cyan">Two ways to explore</h3><p class="mt-2 text-white/70">Take the <strong>guided night tour</strong> and just look around, or <strong>explore on your own</strong> with WASD, touch controls and teleport. A lantern lights your way.</p></article>
     <article class="glass card-hover p-6"><h3 class="h-display text-xl text-cyan">Hear it</h3><p class="mt-2 text-white/70">Ten glowing hotspots tell the history with photos, facts and spoken narration. Ghost stories are marked as folklore, never as fact.</p></article>
     <article class="glass card-hover p-6"><h3 class="h-display text-xl text-cyan">Feel it in VR</h3><p class="mt-2 text-white/70">Slide your phone into Google Cardboard. Split-screen 3D and head tracking work on Android, and WebXR headsets are supported.</p></article>
   </div>

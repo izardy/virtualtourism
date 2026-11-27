@@ -1,5 +1,6 @@
 // SceneManager: renderer, camera rig, lights, night/day atmosphere, render loop.
 import * as THREE from 'three';
+import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
 
 export class SceneManager {
   constructor(container) {
@@ -23,8 +24,8 @@ export class SceneManager {
 
     this.hemi = new THREE.HemisphereLight(0x9fb8ff, 0x1c2a1c, 0.6);
     this.sun = new THREE.DirectionalLight(0xbfd8ff, 1.0);
-    this.sun.position.set(-80, 140, 60);
-    this.torch = new THREE.SpotLight(0xffdfb0, 0, 30, Math.PI / 4, 1.0, 1.6);   // the visitor's lantern
+    this.sun.position.set(150, 110, -25);
+    this.torch = new THREE.SpotLight(0xffdfb0, 0, 30, Math.PI / 3.2, 1.0, 1.4);   // the visitor's lantern
     this.torch.position.set(0.15, -0.1, 0);
     this.torch.target.position.set(0, -0.2, -6);
     this.camera.add(this.torch, this.torch.target);
@@ -32,6 +33,10 @@ export class SceneManager {
 
     this.fireflies = this._makeFireflies();
     this.rig.add(this.fireflies);
+    this.moonDir = new THREE.Vector3(150, 110, -25).normalize();       // over the sea (east)
+    this.moon = this._makeMoon();
+    this.scene.add(this.moon);
+    this.env = { night: null, day: null };
 
     this.updaters = [];
     this.clock = new THREE.Clock();
@@ -65,22 +70,53 @@ export class SceneManager {
 
   setNight(on) {
     this.night = on;
+    const e = this.env[on ? 'night' : 'day'];
     if (on) {
-      this.scene.background = new THREE.Color(0x050b16);
-      this.scene.fog = new THREE.FogExp2(0x0a1626, 0.016);
-      this.hemi.intensity = 0.9; this.hemi.color.set(0x8fa8e8);
-      this.sun.intensity = 0.9; this.sun.color.set(0x9fc0ff);   // moonlight
-      this.torch.intensity = 85;
-      this.renderer.toneMappingExposure = 1.15;
+      this.scene.background = e ? e.bg : new THREE.Color(0x050b16);
+      this.scene.backgroundIntensity = 0.33;
+      this.scene.environment = e ? e.pmrem : null; this.scene.environmentIntensity = 0.16;
+      this.scene.fog = new THREE.FogExp2(0x0b1727, 0.014);
+      this.hemi.intensity = 0.22; this.hemi.color.set(0x8fa8e8);
+      this.sun.intensity = 0.95; this.sun.color.set(0xa9c6ff);   // moonlight
+      this.torch.intensity = 26;
+      this.renderer.toneMappingExposure = 1.05;
     } else {
-      this.scene.background = new THREE.Color(0x8ec7e6);
-      this.scene.fog = new THREE.FogExp2(0xb9dcee, 0.0035);
-      this.hemi.intensity = 1.25; this.hemi.color.set(0xdff1ff);
-      this.sun.intensity = 2.4; this.sun.color.set(0xfff2d6);
+      this.scene.background = e ? e.bg : new THREE.Color(0x8ec7e6);
+      this.scene.backgroundIntensity = 1.0;
+      this.scene.environment = e ? e.pmrem : null; this.scene.environmentIntensity = 0.55;   // the puresky HDRI has a strong sun
+      this.scene.fog = new THREE.FogExp2(0xa9c4d8, 0.0035);
+      this.hemi.intensity = 0.45; this.hemi.color.set(0xdff1ff);
+      this.sun.intensity = 1.9; this.sun.color.set(0xfff2d6);
       this.torch.intensity = 0;
-      this.renderer.toneMappingExposure = 1.0;
+      this.renderer.toneMappingExposure = 0.9;
     }
+    this.moon.visible = on;
     this.fireflies.material.opacity = on ? 0.9 : 0;
+  }
+
+  /** Load the night and day sky maps (equirectangular .hdr). Falls back to flat colours until they arrive. */
+  async loadEnvironments(nightUrl, dayUrl) {
+    const pm = new THREE.PMREMGenerator(this.renderer);
+    const load = async (url) => {
+      const tex = await new RGBELoader().loadAsync(url);
+      tex.mapping = THREE.EquirectangularReflectionMapping;
+      return { bg: tex, pmrem: pm.fromEquirectangular(tex).texture };
+    };
+    try { this.env.night = await load(nightUrl); } catch (e) { console.warn('night sky failed', e); }
+    try { this.env.day = await load(dayUrl); } catch (e) { console.warn('day sky failed', e); }
+    pm.dispose();
+    this.setNight(this.night);
+  }
+
+  _makeMoon() {
+    const c = document.createElement('canvas'); c.width = c.height = 256;
+    const g = c.getContext('2d'), grd = g.createRadialGradient(128, 128, 0, 128, 128, 128);
+    grd.addColorStop(0, 'rgba(255,255,246,1)'); grd.addColorStop(0.16, 'rgba(250,250,235,1)'); grd.addColorStop(0.2, 'rgba(210,225,255,.55)');
+    grd.addColorStop(0.45, 'rgba(150,185,255,.16)'); grd.addColorStop(1, 'rgba(150,185,255,0)');
+    g.fillStyle = grd; g.fillRect(0, 0, 256, 256);
+    const s = new THREE.Sprite(new THREE.SpriteMaterial({ map: new THREE.CanvasTexture(c), transparent: true, depthWrite: false, depthTest: false, fog: false, toneMapped: false }));
+    s.scale.setScalar(110); s.renderOrder = -1; s.frustumCulled = false;
+    return s;
   }
 
   _makeFireflies() {
@@ -95,7 +131,7 @@ export class SceneManager {
     const ctx = c.getContext('2d'); const grd = ctx.createRadialGradient(16, 16, 0, 16, 16, 16);
     grd.addColorStop(0, 'rgba(210,245,255,1)'); grd.addColorStop(0.4, 'rgba(0,212,255,.5)'); grd.addColorStop(1, 'rgba(0,212,255,0)');
     ctx.fillStyle = grd; ctx.fillRect(0, 0, 32, 32);
-    const m = new THREE.PointsMaterial({ size: 0.45, map: new THREE.CanvasTexture(c), transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, opacity: 0.9 });
+    const m = new THREE.PointsMaterial({ size: 0.2, map: new THREE.CanvasTexture(c), transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, opacity: 0.9 });
     const pts = new THREE.Points(g, m);
     pts.frustumCulled = false;
     return pts;
@@ -115,6 +151,7 @@ export class SceneManager {
     const dt = Math.min(this.clock.getDelta(), 0.1), t = this.clock.elapsedTime;
     this.frameTimes.push(dt); if (this.frameTimes.length > 240) this.frameTimes.shift();
     for (const fn of this.updaters) fn(dt, t);
+    if (this.moon.visible) this.moon.position.copy(this.camera.getWorldPosition(this._wp || (this._wp = new THREE.Vector3()))).addScaledVector(this.moonDir, 420);
     this._updateFireflies(t);
     this.renderFn();
   }

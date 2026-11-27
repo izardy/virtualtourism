@@ -89,3 +89,12 @@ The core spec covers the Flask application skeleton, public pages (landing, expl
 ### Requirement 12: Hosting
 1. The app SHALL run under gunicorn (`wsgi:app --preload`) behind HTTPS in production; WebXR, device sensors and secure cookies require HTTPS (`localhost` also counts as secure).
 2. A live URL and a public GitHub repo with an OSI licence SHALL be available for Kiroween judging.
+
+### Requirement 13: Two ways to explore
+**User Story:** As a visitor, I want to choose between steering myself and being guided, so that I can either roam freely or sit back (for example in a headset).
+1. WHEN the viewer opens (without `?mode=free`) THEN the system SHALL offer "Explore on your own" and "Guided night tour"; `?mode=guided` SHALL highlight the guided option, and `?mode=free` SHALL skip the choice.
+2. In guided mode the visitor SHALL NOT be able to move, but SHALL be able to look around freely (mouse, touch, gyroscope, headset).
+3. The guided tour SHALL walk a route computed on the 3D model, stop at each of the ten hotspots in story order, open the story panel with narration, and continue when the narration ends (with intro and outro narration).
+4. The visitor SHALL be able to pause, resume, skip to the previous or next stop, and switch to free exploration at any time; at the end an end card SHALL offer free exploration, a restart, or going back.
+5. WHEN a headset or Cardboard mode is active THEN the guide SHALL move between stops with fades instead of continuous walking (comfort).
+6. The routes SHALL NOT pass through walls, over steep slopes or into the sea.

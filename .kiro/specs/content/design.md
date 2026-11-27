@@ -59,6 +59,9 @@ Check that the seed produces 10 hotspots with titles matching the required list,
 
 ## As built
 - `app/seed_data.py`: 3-paragraph destination text and 10 hotspots, each with a description, three facts, a glTF position, an image (none for Command Centre and Observation Tower) and narration. Facts are hedged with "a sign on site says", "one source" or "estimate"; ghost stories are folklore.
-- Audio: `content/narration/<slug>.txt` rendered with macOS `say -v Daniel -r 160`, converted by ffmpeg to mono 48 kbps mp3 in `app/static/audio/`.
+- Audio: `content/narration/<slug>.txt` rendered by `content/make_narration.py` with Kokoro-82M (offline, Apache-2.0), voice `bf_emma`, speed 0.95, mono 24 kHz 56 kbps mp3 in `app/static/audio/` (70 to 117 KB each). The first version used the macOS `say` Daniel voice; Piper (Alba, Northern male) and Kokoro (George, Emma, Lewis) were compared and Emma was chosen by the user.
 - Images: Commons photos resized by `sips` to 1400 px hero, 640 px thumbnail, 900 px hotspots, 1100 px gallery; credits in `app/static/images/CREDITS.md`.
 - Gallery: hero, hotspot images and `app/static/images/gallery/<slug>/*.jpg`.
+
+## As built: tour narration
+`content/narration/tour-intro.txt` (15 s) and `tour-outro.txt` (13 s) are generated with the same Kokoro `bf_emma` voice (`content/make_narration.py`) into `app/static/audio/tour-intro.mp3` and `tour-outro.mp3`. The outro repeats that ghost stories are folklore and that visitors should follow the museum's own signs.
