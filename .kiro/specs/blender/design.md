@@ -255,3 +255,40 @@ Request: "replace the 2 pillbox in our map with this one, also substitute the en
   - Checks: float, door, chunk, the full tour, phone and the opening flight pass with no console errors. Hotspots did not move.
   - Screenshots confirm both pill box interiors and the type-2 stairs are reachable.
 - **Assumption, not confirmed by the user:** type 1 is used on the hill and type 2 on the coast.
+
+### As built: web model from the digital twin (2026-11-27)
+Request: "copy reproduce.md and other folder there and paste it into our virtualtourism blender folder, then implement option 1 and evaluate if the old approach that build our current sitemap is still needed".
+
+- **Copied files:** `~/Desktop/blender/reproduce.md` → `blender/reproduce.md`, and `~/Desktop/blender/penang_war_museum/` → `blender/penang_war_museum/` (278 MB).
+  - Committed: the guide, the survey and gap markdown, the points CSV, the tools and their derived JSON.
+  - Git-ignored: the .blend files (large, with Google satellite imagery packed), the Street View, satellite and visitor screenshots, the renders, the site-map PNG/SVG and the museum sketch.
+- **`blender/scripts/twin_pipeline.py`:** runs the whole build in background Blender (`Blender -b --factory-startup`), so it never touches a file open in the user's Blender: `twin_build.py` → `place_props.py` → `export_muzium.py` → `build_tour_paths.py` → `export_mobile.py`. Then run `optimize_glb.sh`, desktop and mobile.
+- **`twin_build.py`:**
+  - **Inputs:** reads only the instance placements, the calibrated terrain and the sea from `penang_war_museum_sitemap.blend`.
+  - **Structures:** appends the structure collections from `site_structures/` (all except vegetation and the PB1/PB2 studies) and turns everything 180° about z. The twin's frame is x = −E, y = −N; the web frame is x = E, y = N, so glTF stays x east, z south.
+  - **Vegetation:** drops the twin's own vegetation (46M triangles) and the 6 baked plaza trees (322k triangles each); their spots become hero-tree spots. Decimates 47 heavy plaza assets to about 3,000 triangles each.
+  - **Roles and materials:** bakes and merges faces by role and material (`floor_twin_*`, `struct_twin_*`, `deco_twin_*`), using the same rules as `user_models.py` plus "flat" objects (walk on top, no collision). Procedural materials map to the scene's Poly Haven materials by name; others are flattened to their colour.
+  - **Terrain and sea:** the terrain keeps the twin's SRTM data calibrated against Street View, as `ground_terrain` with Poly Haven forest floor. The Google satellite drape is not shipped. The sea is at the real height (z −68.3; the gate is z 0).
+  - **Markers:** a `loc_*` for every CSV row, a memorial plaque (not in the twin; provisional, beside R34/R05), the spawn 8 m north of the gate, and 10 hotspots: main-entrance B03, weapons-display B17, lookout R37, Japanese tunnel R26, escape route B12 (#29 tunnel entrance), observation post R24, command centre R11, bunker R08, prison R19, memorial.
+  - **Outputs:** `hotspots.json`, `site_points.json`, and `fixtures.json` (200 tree-exclusion zones and the tree spots).
+- **Shared code:** the materials, `TILE` and `uv_box()` moved from `build_muzium.py` into the new `scene_lib.py`, which both builders exec.
+- **Twin mode** (`scene["twin"]`):
+  - `place_props.py`:
+    - Trees are planted on a jittered 20 m grid over the terrain, in three tiers by distance to the walkable surfaces (at most 60 detailed trees), plus hero trees at the plaza spots.
+    - Sea level and bounds come from the scene, and room fit-outs whose `loc_` names do not exist are skipped.
+  - `build_tour_paths.py`: takes the bounds and sea level from the scene and drops the old observation-post stair route.
+- **Results:**
+  - Sizes: desktop 31.0 MB (was 37.8), phone 14.0 MB (was 15.3).
+  - Scene: 3.06M triangles, 388 trees.
+  - Tour: all 10 stops reachable, 543 m in total.
+  - Checks:
+    - The float, chunk, full-tour, phone, desktop and opening-flight checks pass with no console errors.
+    - A new gate walk check (`door_twin.mjs`) walks from the spawn through the gate passage to 13.5 m inside.
+- **Evaluation of the old approach (`build_muzium.py` + `extract_reeaki.py` + `user_models.py`):** no longer needed to build the app's model.
+  - **Better in the twin:** the surveyed positions (±3–6 m), the calibrated terrain and the hand-modelled entrance (the same model as the user's) replace the sketch-map layout and the sketch-derived heights.
+  - **Still needed:** `place_props.py`, `thin_tree.py`, `scene_lib.py`, `export_muzium.py`, `export_mobile.py`, `build_tour_paths.py`, `optimize_glb.sh` and `fetch_polyhaven.py`.
+  - **Only in the old build:**
+    - building interiors (exhibits, lock-up cells, fitted-out rooms), the escape shaft and the tunnel interiors;
+    - the user's type-1/type-2 pill boxes, which the twin keeps as stand-alone PB1/PB2 studies (its pill boxes are sketch placeholders);
+    - the reeaki-specific coast items: the jetty, the submarine bay and the sand bar.
+  - **Recommendation:** keep the old scripts as a fallback until the twin is accepted, then move them to `blender/scripts/legacy/`. Port the pill boxes (PB1/PB2 at R01, R02, R37 and the coast pill boxes) and the interiors into twin mode if they are wanted.

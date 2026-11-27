@@ -12,9 +12,11 @@ from mathutils.bvhtree import BVHTree
 
 ROOT = "/Users/izardy/Documents/virtualtourism"
 HOT = json.load(open(ROOT + "/blender/out/hotspots.json"))
-SEA_Z = -36.0
+SC = bpy.context.scene
+TWIN = bool(SC.get("twin", False))            # scene from twin_build.py
+SEA_Z = float(SC.get("sea_z", -36.0))
 STEP = 1.5
-X0, Y0, X1, Y1 = -330.0, -260.0, 300.0, 260.0
+X0, Y0, X1, Y1 = tuple(SC["bounds"]) if TWIN else (-330.0, -260.0, 300.0, 260.0)
 RADIUS = 0.45
 
 # the order of the story: purpose of the fort, the sea view, the tunnels, the command rooms, the prison, then remembrance
@@ -187,6 +189,7 @@ STAIR_FOOT, STAIR_TOP, PLAT = (tx + 10.9, ty), (tx + 2.8, ty), (tx + 1.3, ty)
 def at(p, from_z): return (p[0], p[1], ground_z(p[0], p[1], from_z))
 ENTER = {"observation-tower": [at((tx + 9.0, ty), tz + 1.0), at((tx + 5.5, ty), tz + 1.0), at(STAIR_TOP, tz + 1.0), at(PLAT, tz + 1.0)]}
 LEAVE = {"observation-tower": [at(STAIR_TOP, tz + 1.0), at((tx + 5.5, ty), tz + 1.0), at((tx + 9.0, ty), tz + 1.0), at(STAIR_FOOT, tz + 1.0)]}
+if TWIN: ENTER, LEAVE = {}, {}                # the twin's observation post is a placeholder without the stairs
 
 stops, total, prefix = [], 0.0, []
 for slug, title in ORDER:

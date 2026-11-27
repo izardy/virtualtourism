@@ -34,8 +34,9 @@ def favicon():
 
 @bp.route("/")
 def index():
-    featured = Destination.query.order_by(Destination.id).first()
-    return render_template("index.html", featured=featured)
+    destinations = Destination.query.order_by(Destination.id).all()
+    featured = destinations[0] if destinations else None
+    return render_template("index.html", featured=featured, destinations=destinations)
 
 
 @bp.route("/explore")

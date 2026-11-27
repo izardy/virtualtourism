@@ -16,20 +16,7 @@
 <section class="mx-auto max-w-6xl px-6 pb-10">
   {% if destinations %}
   <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-    {% for d in destinations %}
-    <article class="glass card-hover flex flex-col overflow-hidden">
-      <a href="{{ url_for('main.destination', dest_id=d.id) }}" aria-label="{{ d.name }}">
-        {% if d.thumbnail %}<img src="{{ url_for('static', filename=d.thumbnail) }}" alt="{{ d.name }}" class="h-52 w-full object-cover" loading="lazy">
-        {% else %}<div class="grid h-52 place-items-center bg-navy-800 text-white/40">No image</div>{% endif %}
-      </a>
-      <div class="flex flex-1 flex-col p-5">
-        <span class="chip self-start">{{ d.category or 'Destination' }}</span>
-        <h2 class="h-display mt-3 text-2xl font-semibold">{{ d.name }}</h2>
-        <p class="mt-1 text-sm text-white/60">{{ d.location }}</p>
-        <div class="mt-auto pt-5"><a class="btn-primary" href="{{ url_for('main.destination', dest_id=d.id) }}">Explore</a></div>
-      </div>
-    </article>
-    {% endfor %}
+    {% for d in destinations %}{% include "_destination_card.html" %}{% endfor %}
   </div>
   {% else %}
   <div class="glass p-10 text-center"><p class="text-lg">No destination matches &ldquo;{{ q }}&rdquo;.</p><a class="btn-glass mt-5" href="{{ url_for('main.explore') }}">Show all destinations</a></div>

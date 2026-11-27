@@ -23,3 +23,17 @@ blender/src/*.blend1
 reference/photos/**/*.jpg
 reference/photos/**/*.jpeg
 blender/src/*.blend
+
+# Penang War Museum digital-twin project (blender/penang_war_museum, copied from ~/Desktop/blender): the .blend files
+# are large (about 280 MB) and pack Google satellite imagery; screenshots, renders and site-map images are Google Street
+# View / satellite captures, visitor photos and the museum's sketch map. Only the guide, survey text, CSV, tools and
+# derived numbers are committed.
+blender/penang_war_museum/**/*.blend
+blender/penang_war_museum/**/*.blend1
+blender/penang_war_museum/museum_survey/screenshots/
+blender/penang_war_museum/museum_survey/renders/
+blender/penang_war_museum/museum_survey/*.png
+blender/penang_war_museum/museum_survey/*.svg
+blender/penang_war_museum/museum_survey/tools/sketch.jpg
+blender/penang_war_museum/museum_survey/tools/overlay.svg
+blender/penang_war_museum/museum_survey/tools/__pycache__/

@@ -1,0 +1,84 @@
+id,name,type,lat,lon,E_m,N_m,model_x,model_y,size_E_m,size_N_m,rot_deg_ccw,source,accuracy,sketch_match
+B01,"Main gate (log-letter WAR MUSEUM, 2013) / block letters (2024)",surveyed,5.2814045,100.2888000,0.0,0.5,-0.0,-0.5,23,3,0,SV 2013+2024,±3 m,
+B02,Gate passage (lattice-truss roof),surveyed,5.2813548,100.2888090,1.0,-5.0,-1.0,5.0,4.6,9.5,0,SV 2013,±3 m,
+B03,Ticket counter / museum office,surveyed,5.2812372,100.2887639,-4.0,-18.0,4.0,18.0,5,17,0,SV 2013,±4 m,#3;Information & ticketing
+B04,Camouflage kiosk (WARMUSEUM plaque),surveyed,5.2812282,100.2889083,12.0,-19.0,-12.0,19.0,5.4,3.6,-40,SV 2013 + PS 2016,±5 m,
+B05,Timber watchtower,surveyed,5.2812870,100.2889353,15.0,-12.5,-15.0,12.5,3,3,0,PS 2016,±5 m,
+B06,"Signboard, soldier statue, MALAYA Border Check Point",surveyed,5.2812010,100.2889263,14.0,-22.0,-14.0,22.0,2,1,-30,SV 2013 + PS 2016,±5 m,
+B07,"Rest area + souvenir/cafe (teal, TIPPNA)",surveyed,5.2811802,100.2888415,4.6,-24.3,-4.6,24.3,10,5,0,SV 2013,±4 m,Souvenir
+B08,Toilet block (camouflage doors),surveyed,5.2811196,100.2888902,10.0,-31.0,-10.0,31.0,8,4,-35,SV 2013,±4 m,Toilet
+B10,Site-map board on walkway,surveyed,5.2809026,100.2890932,32.5,-55.0,-32.5,55.0,2.5,0.4,-35,SV 2013,±3 m,
+B12,#29 Entrance to the ammunition storage tunnel (was B12 'vaulted bunker'),surveyed,5.2807552,100.2893097,56.5,-71.3,-56.5,71.3,5,6,-35,SV 2013,±4 m,#29
+B13,Garden huts / miniature models,surveyed,5.2808936,100.2892240,47.0,-56.0,-47.0,56.0,2,1.5,-35,SV 2013,±6 m,
+B14,"SE courtyard (vine pergola, wooden fort model)",surveyed,5.2805680,100.2896570,95.0,-92.0,-95.0,92.0,20,15,-35,SV 2013,±5 m,
+B15,Blue barrack building (bamboo-screened windows),surveyed,5.2807308,100.2888180,2.0,-74.0,-2.0,74.0,12,7,40,SV 2013,±6 m,#7
+B17,Coastal gun emplacement (circular gun pit + magazines),surveyed,5.2804450,100.2894008,66.6,-105.6,-66.6,105.6,9,9,0,PS 2017,±3 m,#25
+S1,Open clearing / former parade ground,satellite,5.2808890,100.2893684,63.0,-56.5,-63.0,56.5,25,25,-35,SAT,±4 m,
+S2,Small roofed building,satellite,5.2805580,100.2893178,57.4,-93.1,-57.4,93.1,8,10,-35,SAT,±4 m,
+S3,Small white hut,satellite,5.2804251,100.2896399,93.1,-107.8,-93.1,107.8,3,3,0,SAT,±4 m,
+S4,"Small hut (SW, in forest)",satellite,5.2803853,100.2889218,13.5,-112.2,-13.5,112.2,4,4,0,SAT,±4 m,
+S5,Dark-roof building + grey annex (exhibition hall / cafeteria?),satellite,5.2812870,100.2890300,25.5,-12.5,-25.5,12.5,12,13,0,SAT,±4 m,Cafeteria
+S6,Brown-roof building beside SW branch,satellite,5.2809008,100.2889218,13.5,-55.2,-13.5,55.2,15,9,35,SAT,±4 m,
+R01,Pill box,sketch_relic,5.2806100,100.2875341,-140.3,-87.4,140.3,87.4,,,,sketch map (fitted),±30 m,
+R02,Pill box,sketch_relic,5.2822485,100.2889378,15.3,93.8,-15.3,-93.8,,,,sketch map (fitted),±30 m,
+R03,Office & R&D,sketch_relic,5.2808614,100.2888836,9.3,-59.5,-9.3,59.5,,,,sketch map (fitted),±30 m,B03
+R04,Mortuary (JPN),sketch_relic,5.2807305,100.2888783,8.7,-74.0,-8.7,74.0,,,,sketch map (fitted),±30 m,
+R05,Open air theatre (teal gable shed with displays),sketch_relic,5.2805341,100.2888896,9.9,-95.8,-9.9,95.8,,,,sketch map (fitted),±30 m,
+R06,(barrack),sketch_relic,5.2804057,100.2886930,-11.9,-109.9,11.9,109.9,,,,sketch map (fitted),±30 m,
+R07,British other ranks 1,sketch_relic,5.2805069,100.2887169,-9.2,-98.7,9.2,98.7,,,,sketch map (fitted),±30 m,B15 (same structure; not modelled separately)
+R08,Underground communication centre,sketch_relic,5.2807145,100.2886651,-14.9,-75.8,14.9,75.8,,,,sketch map (fitted),±30 m,
+R09,"Medical infirmary, store, dressing",sketch_relic,5.2808914,100.2885277,-30.2,-56.2,30.2,56.2,,,,sketch map (fitted),±30 m,
+R10,"British officer 1, 2, dining",sketch_relic,5.2811041,100.2884076,-43.5,-32.7,43.5,32.7,,,,sketch map (fitted),±30 m,
+R11,Intelligence room,sketch_relic,5.2806740,100.2883866,-45.8,-80.3,45.8,80.3,,,,sketch map (fitted),±30 m,
+R12,Cook house,sketch_relic,5.2807471,100.2881257,-74.7,-72.2,74.7,72.2,,,,sketch map (fitted),±30 m,
+R13,"Indian other ranks 3, 3A",sketch_relic,5.2804679,100.2878754,-102.5,-103.1,102.5,103.1,,,,sketch map (fitted),±30 m,
+R14,"Indian other ranks 4, 4A",sketch_relic,5.2802885,100.2878978,-100.0,-122.9,100.0,122.9,,,,sketch map (fitted),±30 m,
+R15,"Indian other ranks 1, 1A",sketch_relic,5.2804791,100.2881103,-76.5,-101.8,76.5,101.8,,,,sketch map (fitted),±30 m,
+R16,"Indian other ranks 2, 2A",sketch_relic,5.2803514,100.2880801,-79.8,-115.9,79.8,115.9,,,,sketch map (fitted),±30 m,
+R17,Cook house,sketch_relic,5.2801631,100.2880137,-87.2,-136.8,87.2,136.8,,,,sketch map (fitted),±30 m,
+R18,"Malay other ranks 1, 1A",sketch_relic,5.2800759,100.2882854,-57.0,-146.4,57.0,146.4,,,,sketch map (fitted),±30 m,
+R19,"Lock-up, cook house",sketch_relic,5.2803332,100.2882790,-57.8,-118.0,57.8,118.0,,,,sketch map (fitted),±30 m,
+R20,British other ranks 4,sketch_relic,5.2804559,100.2883543,-49.4,-104.4,49.4,104.4,,,,sketch map (fitted),±30 m,
+R21,British other ranks 3,sketch_relic,5.2802432,100.2884822,-35.2,-127.9,35.2,127.9,,,,sketch map (fitted),±30 m,
+R22,British other ranks 2,sketch_relic,5.2803425,100.2885652,-26.0,-116.9,26.0,116.9,,,,sketch map (fitted),±30 m,
+R23,Underground water tank,sketch_relic,5.2803148,100.2887843,-1.7,-120.0,1.7,120.0,,,,sketch map (fitted),±30 m,
+R24,Observation post,sketch_relic,5.2803467,100.2889430,15.9,-116.5,-15.9,116.5,,,,sketch map (fitted),±30 m,
+R25,Canon firing bay,sketch_relic,5.2806053,100.2892694,52.0,-87.9,-52.0,87.9,,,,sketch map (fitted),±30 m,B17 (same structure; not modelled separately)
+R26,Tunnel,sketch_relic,5.2808851,100.2896939,99.1,-56.9,-99.1,56.9,,,,sketch map (fitted),±30 m,
+R27,Canon firing bay,sketch_relic,5.2807781,100.2895954,88.2,-68.8,-88.2,68.8,,,,sketch map (fitted),±30 m,
+R28,Well,sketch_relic,5.2810263,100.2898144,112.4,-41.3,-112.4,41.3,,,,sketch map (fitted),±30 m,
+R29,Tunnel,sketch_relic,5.2807724,100.2891988,44.2,-69.4,-44.2,69.4,,,,sketch map (fitted),±30 m,B12 (same structure; not modelled separately)
+R30,Anti-aircraft pit,sketch_relic,5.2805517,100.2890826,31.3,-93.8,-31.3,93.8,,,,sketch map (fitted),±30 m,
+R31,Booby trap zone,sketch_relic,5.2806440,100.2898823,120.0,-83.6,-120.0,83.6,,,,sketch map (fitted),±30 m,
+R32,General Yamashita gallow,sketch_relic,5.2801677,100.2886046,-21.7,-136.3,21.7,136.3,,,,sketch map (fitted),±30 m,
+R33,Trench route,sketch_relic,5.2803940,100.2891408,37.8,-111.2,-37.8,111.2,,,,sketch map (fitted),±30 m,
+R34,Guillotine,sketch_relic,5.2807037,100.2889419,15.7,-77.0,-15.7,77.0,,,,sketch map (fitted),±30 m,
+R35,Armoury,sketch_relic,5.2803015,100.2886551,-16.1,-121.5,16.1,121.5,,,,sketch map (fitted),±30 m,
+R36,6-inch BL gun replica under camouflage netting (Canon),sketch_relic,5.2811830,100.2890887,32.0,-24.0,-32.0,24.0,,,,sketch map + Tye 2013 photo sequence,±15 m,
+R37,Pill box,sketch_relic,5.2808197,100.2896796,97.5,-64.2,-97.5,64.2,,,,sketch map (fitted),±30 m,
+F,Information & ticketing,sketch_feature,5.2811972,100.2887766,-2.6,-22.4,2.6,22.4,,,,sketch map (fitted),±30 m,B03
+F,Souvenir,sketch_feature,5.2810021,100.2888144,1.6,-44.0,-1.6,44.0,,,,sketch map (fitted),±30 m,B07
+F,Cafeteria,sketch_feature,5.2813972,100.2892597,51.0,-0.3,-51.0,0.3,,,,sketch map (fitted),±30 m,S5
+F,Toilet,sketch_feature,5.2812068,100.2884423,-39.6,-21.4,39.6,21.4,,,,sketch map (fitted),±30 m,B08
+F,VIP car park,sketch_feature,5.2814683,100.2887983,-0.2,7.6,0.2,-7.6,,,,sketch map (fitted),±30 m,
+F,Car park,sketch_feature,5.2819263,100.2894259,69.4,58.2,-69.4,-58.2,,,,sketch map (fitted),±30 m,
+F,Generator room (BR) / torture chamber (JPN),sketch_feature,5.2799910,100.2884202,-42.1,-155.8,42.1,155.8,,,,sketch map (fitted),±30 m,
+F,Submarine landing bay,sketch_feature,5.2816176,100.2902950,165.7,24.1,-165.7,-24.1,,,,sketch map (fitted),±30 m,
+F,Jetty / maritime museum,sketch_feature,5.2819304,100.2901023,144.4,58.7,-144.4,-58.7,,,,sketch map (fitted),±30 m,
+F,Generator room (coast),sketch_feature,5.2819246,100.2897369,103.8,58.0,-103.8,-58.0,,,,sketch map (fitted),±30 m,
+F,Armoury (coast),sketch_feature,5.2820730,100.2896832,97.9,74.4,-97.9,-74.4,,,,sketch map (fitted),±30 m,
+F,Water tank (coast),sketch_feature,5.2821516,100.2895670,85.0,83.1,-85.0,-83.1,,,,sketch map (fitted),±30 m,
+F,Water tank (road),sketch_feature,5.2808855,100.2873210,-163.9,-56.9,163.9,56.9,,,,sketch map (fitted),±30 m,
+F,Pill box (coast),sketch_feature,5.2813529,100.2902314,158.7,-5.2,-158.7,5.2,,,,sketch map (fitted),±30 m,
+F,Pill box (coast),sketch_feature,5.2812765,100.2899588,128.5,-13.7,-128.5,13.7,,,,sketch map (fitted),±30 m,
+F,Pill box (coast),sketch_feature,5.2815261,100.2899135,123.4,13.9,-123.4,-13.9,,,,sketch map (fitted),±30 m,
+F,Pill box (coast),sketch_feature,5.2817433,100.2901168,146.0,38.0,-146.0,-38.0,,,,sketch map (fitted),±30 m,
+B09_0,Covered walkway centreline vertex,path,5.2811016,100.2889083,12.0,-33.0,-12.0,33.0,3.2,,,SV 2013,±3 m,
+B09_1,Covered walkway centreline vertex,path,5.2810581,100.2889615,17.9,-37.8,-17.9,37.8,3.2,,,SV 2013,±3 m,
+B09_2,Covered walkway centreline vertex,path,5.2809903,100.2890400,26.6,-45.3,-26.6,45.3,3.2,,,SV 2013,±3 m,
+B09_3,Covered walkway centreline vertex,path,5.2809153,100.2891130,34.7,-53.6,-34.7,53.6,3.2,,,SV 2013,±3 m,
+B09_4,Covered walkway centreline vertex,path,5.2808520,100.2891888,43.1,-60.6,-43.1,60.6,3.2,,,SV 2013,±3 m,
+B09_5,Covered walkway centreline vertex,path,5.2807805,100.2893350,59.3,-68.5,-59.3,68.5,3.2,,,SV 2013,±3 m,
+B09_6,Covered walkway centreline vertex,path,5.2807344,100.2894378,70.7,-73.6,-70.7,73.6,3.2,,,SV 2013,±3 m,
+B09_7,Covered walkway centreline vertex,path,5.2806530,100.2895813,86.6,-82.6,-86.6,82.6,3.2,,,SV 2013,±3 m,
+B09_8,Covered walkway centreline vertex,path,5.2806123,100.2896228,91.2,-87.1,-91.2,87.1,3.2,,,SV 2013,±3 m,

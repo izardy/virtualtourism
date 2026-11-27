@@ -43,7 +43,7 @@ Priority order:
 ## Site layout sources (read before blockout)
 - `reference/sitemap/MAP_NOTES.md` and `reference/sitemap/site_layout.json` (37 numbered locations, pixel coordinates, provisional scale of about 0.28 m per pixel).
 - `reference/video/VIDEO_NOTES.md` for signage and visual style.
-- Layout source since 2026-11-27: the reeaki "Fort Relics" visitor map, followed as drawn. `blender/scripts/extract_reeaki.py` writes `reference/sitemap/reeaki_layout.json` (points, building angles, facilities, heights, coast, paths, roads, trees), and `build_muzium.py` / `place_props.py` read it. Re-run the extractor, then the whole pipeline, after changing a marker or a hand-traced road in it. There is no `LAYOUT_ROT` any more (the earlier 55° satellite rotation was dropped on request). After moving anything, re-run `build_tour_paths.py`: it reports hotspots that the move has blocked. Blender X = `east_m`, Y = `north_m` of the map frame (image-up = −Y), Z = up.
+- Layout source (2026-11-27, latest): the digital twin in `blender/penang_war_museum/` (see `blender/reproduce.md`). `blender/scripts/twin_build.py` turns it into the web scene and `twin_pipeline.py` runs the whole build in background Blender. Move a structure by editing its row in `museum_survey/penang_war_museum_sitemap_points.csv` and rebuilding the twin file (see reproduce.md), then re-run the pipeline. Never run scene-clearing scripts in the user's open Blender. The earlier reeaki-map builder (`extract_reeaki.py` + `build_muzium.py`) is kept as a fallback.
 - Scope: all 37 map points are modelled; the 10 hotspots are the interactive ones.
 - Per-hotspot evidence is in `reference/photos/<slug>/INFO.md`.
 - Videos and the museum map are reference only. Never copy them into `app/static/`.

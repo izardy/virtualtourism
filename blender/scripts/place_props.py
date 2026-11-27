@@ -92,12 +92,13 @@ def ground_z(x, y):
     hit = bvh.ray_cast((x, y, 200.0), (0, 0, -1))
     return hit[0].z if hit[0] else None
 
-SEA_Z = -36.0
+TWIN = bool(bpy.context.scene.get("twin", False))     # scene built by twin_build.py (digital-twin layout)
+SEA_Z = float(bpy.context.scene.get("sea_z", -36.0))
 locs = {o.name: o.location.copy() for o in bpy.data.objects if o.name.startswith("loc_")}
 def loc(prefix):
     for k, v in locs.items():
         if k.startswith(prefix): return v
-    raise KeyError(prefix)
+    return None                                    # (the twin layout has other point names)
 
 # ---- trees: Poly Haven island trees, thinned from 1-2 million triangles to about 10k each (see thin_tree.py)
 exec(open(ROOT + "/blender/scripts/thin_tree.py").read())
@@ -141,6 +142,10 @@ T_MOB = tree_template("island_tree_01", 0.022, 4.4, 700); T_MOB.name = "tpl_tree
 
 # ---- exclusion map: structures, paths, roads, spawn
 paths = []
+if TWIN:        # every walkable surface of the twin (walkway deck, plaza, drives, steps), thinned to at most 6000 points
+    for o in bpy.data.objects:
+        if o.type == "MESH" and o.name.startswith("floor_"): paths += [(v.co.x, v.co.y) for v in o.data.vertices]
+    if len(paths) > 6000: paths = paths[::len(paths) // 6000 + 1]
 for nm in ("floor_paths", "floor_road"):
     o = bpy.data.objects.get(nm)
     if o: paths += [(v.co.x, v.co.y) for v in o.data.vertices]
@@ -163,11 +168,23 @@ ZONES = _jz.load(open(ROOT + "/blender/out/fixtures.json")).get("zones", [])
 # strict sitemap layout: no satellite clearings any more; the open lawns of the map (light green) stay free of filler trees
 CLEARINGS = []
 import json as _json
-RK = _json.load(open(ROOT + "/reference/sitemap/reeaki_layout.json")); _RH = RK["height"]
-def cover_at(x, y):
-    i = int(round((x - _RH["e0"]) / _RH["step"])); j = int(round((y - _RH["n0"]) / _RH["step"]))
-    if not (0 <= i < _RH["ne"] and 0 <= j < _RH["nn"]): return 0
-    return _RH["cover"][j * _RH["ne"] + i]
+if TWIN:
+    # no reeaki map: trees on a jittered 20 m grid over the whole terrain (like the twin's build_vegetation.py), plus the
+    # spots where the twin's entrance plaza had its Poly Haven trees
+    _FX = _jz.load(open(ROOT + "/blender/out/fixtures.json"))
+    _B = bpy.context.scene["bounds"]; _r = random.Random(23); _trees = []
+    for gx in range(int(_B[0]) + 10, int(_B[2]) - 10, 20):
+        for gy in range(int(_B[1]) + 10, int(_B[3]) - 10, 20):
+            if _r.random() < 0.55: _trees.append([gx + _r.uniform(-7, 7), gy + _r.uniform(-7, 7), 1])
+    RK = {"trees": _trees}
+    def cover_at(x, y):
+        z = ground_z(x, y); return 2 if (z is not None and z > SEA_Z + 2.0) else 0
+else:
+    RK = _json.load(open(ROOT + "/reference/sitemap/reeaki_layout.json")); _RH = RK["height"]
+    def cover_at(x, y):
+        i = int(round((x - _RH["e0"]) / _RH["step"])); j = int(round((y - _RH["n0"]) / _RH["step"]))
+        if not (0 <= i < _RH["ne"] and 0 <= j < _RH["nn"]): return 0
+        return _RH["cover"][j * _RH["ne"] + i]
 
 TREES_AT = []
 
@@ -182,7 +199,9 @@ def footprint(tpl, scale):
     if "base_r" in tpl: return tpl["base_r"] * scale
     return 0.35 * min(tpl.dimensions.x, tpl.dimensions.y) * scale
 
-def scatter(n, tpls, zmin, scale=(0.8, 1.3), tries=3000, region=(-300, 240, -200, 200), name=None, path_r=4.5, where=None):
+def scatter(n, tpls, zmin, scale=(0.8, 1.3), tries=3000, region=None, name=None, path_r=4.5, where=None):
+    if region is None:
+        region = tuple(bpy.context.scene["bounds"][i] for i in (0, 2, 1, 3)) if TWIN else (-300, 240, -200, 200)
     placed = 0
     for _ in range(tries):
         if placed >= n: break
@@ -228,30 +247,41 @@ for asset, tris in (("shrub_02", 300), ("fern_02", 300), ("rock_moss_set_01", 90
 # trees and an extra set of far trees go into the fort core (CORE, metres), where visitors walk; the rest fill the hills.
 # Trees follow the reeaki map: one tree (or a small group) on every tree drawn on the map, detailed near the paths and
 # far-detail elsewhere; then filler trees only on the map's dark-green (wooded) ground and on the hills beyond the map.
-n_tree = 0
+n_tree = 0; n_near = 0
 def near_path_pts(x, y, r): return any((x - a) ** 2 + (y - b) ** 2 < r * r for a, b in paths)
 for (te, tn, k) in RK["trees"]:
     for j in range(int(k)):
         for _t in range(12):
             x = te + random.uniform(-3.5, 3.5) * (1 + j); y = tn + random.uniform(-3.5, 3.5) * (1 + j)
             if blocked(x, y, 3.5, 7.5) or any((x - a) ** 2 + (y - b) ** 2 < 5.0 ** 2 for a, b in TREES_AT): continue
-            near = near_path_pts(x, y, 25.0)
-            tpl = random.choice([T_TREE1, T_TREE1, T_TREE2] if near else [T_FAR1, T_FAR1, T_FAR2]); sc = random.uniform(1.7, 2.4)
+            if TWIN:     # three tiers by distance to the walkable surfaces; at most 60 detailed trees
+                near = n_near < 60 and near_path_pts(x, y, 18.0)
+                tier = "tree" if near else ("tree_far" if near_path_pts(x, y, 60.0) else "tree_dist")
+                tpl = random.choice({"tree": [T_TREE1, T_TREE1, T_TREE2], "tree_far": [T_FAR1, T_FAR1, T_FAR2], "tree_dist": [T_DIST]}[tier])
+            else:
+                near = near_path_pts(x, y, 25.0); tier = "tree" if near else "tree_far"
+                tpl = random.choice([T_TREE1, T_TREE1, T_TREE2] if near else [T_FAR1, T_FAR1, T_FAR2])
+            sc = random.uniform(1.7, 2.4)
             z = settle_z(x, y, footprint(tpl, sc))
             if z is None or z < SEA_Z + 2.0: continue
-            put(tpl, x, y, z, random.uniform(0, 6.28), sc, "tree" if near else "tree_far"); TREES_AT.append((x, y)); n_tree += 1; break
+            put(tpl, x, y, z, random.uniform(0, 6.28), sc, tier); TREES_AT.append((x, y)); n_tree += 1; n_near += near; break
 print("map trees placed:", n_tree, "of", sum(int(t[2]) for t in RK["trees"]))
 CORE = (-185, 120, -135, 60)
+if TWIN:     # the fort core = the stories' area plus 40 m
+    _hs = [o.location for o in bpy.data.objects if o.name.startswith("hotspot_")]
+    CORE = (min(p.x for p in _hs) - 40, max(p.x for p in _hs) + 40, min(p.y for p in _hs) - 40, max(p.y for p in _hs) + 40)
 wooded = lambda x, y: cover_at(x, y) == 2
 offmap = lambda x, y: cover_at(x, y) in (0, 2)
-n_tree += scatter(85, [T_FAR1, T_FAR1, T_FAR2], SEA_Z + 2.0, (1.6, 2.5), tries=12000, region=CORE, name="tree_far", path_r=8.0, where=wooded)
-n_tree += scatter(50, [T_FAR1, T_FAR1, T_FAR2], SEA_Z + 2.0, (1.6, 2.5), tries=8000, name="tree_far", path_r=11.0, where=offmap)
-n_tree += scatter(130, [T_DIST], SEA_Z + 2.0, (1.7, 2.6), tries=15000, name="tree_dist", path_r=32.0, where=offmap)
+if not TWIN:     # (the twin's grid already covers the whole terrain)
+    n_tree += scatter(85, [T_FAR1, T_FAR1, T_FAR2], SEA_Z + 2.0, (1.6, 2.5), tries=12000, region=CORE, name="tree_far", path_r=8.0, where=wooded)
+    n_tree += scatter(50, [T_FAR1, T_FAR1, T_FAR2], SEA_Z + 2.0, (1.6, 2.5), tries=8000, name="tree_far", path_r=11.0, where=offmap)
+    n_tree += scatter(130, [T_DIST], SEA_Z + 2.0, (1.7, 2.6), tries=15000, name="tree_dist", path_r=32.0, where=offmap)
 
 # hero trees: close to where visitors stand, but off the paths and clear of buildings
 def near_path(x, y, r): return any((x - a) ** 2 + (y - b) ** 2 < r * r for a, b in paths)
 def near_struct(x, y, r): return any((x - a) ** 2 + (y - b) ** 2 < r * r for a, b in pts_struct)
 hero_at = [(spawn.x + 2, spawn.y + 11), (spawn.x + 2, spawn.y - 11)]                     # both sides of the entrance gate
+if TWIN: hero_at = [tuple(p) for p in _FX.get("tree_spots", [])] + [(spawn.x - 12, spawn.y + 2), (spawn.x + 12, spawn.y + 2)]
 for o in bpy.data.objects:
     if o.name in ("hotspot_weapons-display", "hotspot_prison-area", "hotspot_memorial-zone", "hotspot_command-centre"):
         hero_at.append((o.location.x, o.location.y))
@@ -294,7 +324,9 @@ _locrot = {o.name: float(o.get("rot", 0.0)) for o in bpy.data.objects if o.name.
 def at(prefix, dx, dy, dz=0.0, rot=0.0, scale=1.0, key=None):
     if key not in A: return None
     tpl_ = A[key][0] if isinstance(A[key], list) else A[key]
-    b = loc(prefix); z = b.z + dz
+    b = loc(prefix)
+    if b is None: return None
+    z = b.z + dz
     br = next((v for k, v in _locrot.items() if k.startswith(prefix)), 0.0)       # offsets turn with the building
     c_, s_ = math.cos(br), math.sin(br); dx, dy = dx * c_ - dy * s_, dx * s_ + dy * c_; rot += br
     return put(tpl_, b.x + dx, b.y + dy, z + 0.15, rot, scale)
@@ -309,7 +341,8 @@ at("loc_11_", 0.0, 1.5, 0.85, 0.0, 1.0, "vintage_radio_transceiver")      # on a
 for dx in (-3.5, 0.0, 3.5): at("loc_20_", dx, -1.0, 0, math.pi / 2, 1.0, "old_bed_frame")
 for nm in ("loc_26_", "loc_29_"):
     if "caged_hanging_light" not in A: break
-    b = loc(nm); put(A["caged_hanging_light"], b.x + 1.0, b.y, b.z + 2.45, 0, 1.0)     # hung at the portal
+    b = loc(nm)
+    if b: put(A["caged_hanging_light"], b.x + 1.0, b.y, b.z + 2.45, 0, 1.0)     # hung at the portal
 at("loc_24_", 0.0, 0.0, 5.2, 0.0, 1.0, "wooden_ladder")
 # (the open iron gate leaves of the old scripted gate are gone: the entrance is now the user's model)
 for pref, dx, dy, sc in (("loc_24_", 2.6, 2.2, 1.5), ("loc_24_", -2.4, -2.0, 1.3), ("loc_26_", 2.0, 2.5, 1.4), ("loc_29_", -2.0, 2.2, 1.3), ("loc_08_", 6.5, 3.2, 1.5), ("loc_20_", -5.5, 3.0, 1.3), ("loc_35_", 4.2, 2.8, 1.2)):
@@ -353,7 +386,7 @@ for dx in (-5.0, 0.0, 5.0): at("loc_fac_cafeteria", dx, -7.5, 0, 0.0, 1.0, "wood
 for k in (1, 2, 3): at(f"loc_fac_toilet_{k}", 3.4, 2.8, 0, 0.0, 1.0, "metal_trash_can")
 at("loc_fac_ticketing", 12.0, -6.5, 0, 0.0, 1.0, "metal_trash_can")
 # jetty: a lifebuoy on a post at the shore end, two buoys in the bay
-if "lifebuoy" in A:
+if "lifebuoy" in A and loc("loc_fac_maritime_museum") and loc("loc_fac_jetty"):
     mm = loc("loc_fac_maritime_museum"); jt = loc("loc_fac_jetty"); ja = math.atan2(jt.y - mm.y, jt.x - mm.x)
     lx, ly = mm.x + math.cos(ja) * 6.0 - math.sin(ja) * 1.6, mm.y + math.sin(ja) * 6.0 + math.cos(ja) * 1.6
     put(A["lifebuoy"], lx, ly, SEA_Z + 0.6, ja, 1.0, "lifebuoy")

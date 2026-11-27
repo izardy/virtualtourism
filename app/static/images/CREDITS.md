@@ -25,6 +25,7 @@ Credit line: "<author>, <licence>, via Wikimedia Commons". File page: https://co
 Note: hotspots/main-entrance.jpg is CC BY-SA, so the share-alike condition applies to that image and any derivative of it.
 
 # 3D assets
+- Site layout, terrain and structures (since 2026-11-27): the project's Penang War Museum digital twin (`blender/penang_war_museum`), built from public Street View observation, the museum's sketch map and SRTM 30 m elevation (NASA, public domain, via OpenTopoData). The Google satellite imagery used inside the twin is not shipped in the app.
 - Pill boxes (type 1 and type 2) and the WAR MUSEUM entrance: modelled in Blender by the project author (`blender/user_models/`).
 - Red brick on the entrance: Poly Haven `brick_4`, CC0.
 - Props, textures and the sky map in the 3D model come from Poly Haven (https://polyhaven.com), CC0.

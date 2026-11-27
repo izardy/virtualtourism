@@ -1,5 +1,16 @@
 # Blender: Muzium Perang Penang model
 
+**Current build (2026-11-27): from the digital twin.** `blender/penang_war_museum/` is the Penang War Museum digital twin (method and tools: `blender/reproduce.md`). Build the web model in background Blender, then optimize:
+```
+/Applications/Blender.app/Contents/MacOS/Blender -b --factory-startup --python blender/scripts/twin_pipeline.py
+sh blender/scripts/optimize_glb.sh && sh blender/scripts/optimize_glb.sh mobile
+```
+`twin_pipeline.py` runs `twin_build.py` (twin -> web scene), `place_props.py`, `export_muzium.py`, `build_tour_paths.py` and `export_mobile.py`. After a build, copy `blender/out/site_points.json` to `app/static/data/muzium_perang_points.json` and sync `blender/out/hotspots.json` into `app/seed_data.py` and the DB.
+
+The sections below describe the earlier sketch-map pipeline (`build_muzium.py`), kept as a fallback.
+
+## Fallback: sketch-map pipeline
+
 First build of the 3D site. Since 2026-11-27 the layout strictly follows the reeaki "Fort Relics" visitor map: `scripts/extract_reeaki.py` turns the map into `reference/sitemap/reeaki_layout.json` (positions, building angles, hill, bay and sand bar, paths, roads, trees), and `build_muzium.py` and `place_props.py` read it. The map is schematic, so distances are approximate (about 0.55 m per map pixel). Everything is a PROVISIONAL blockout, not a survey. Run the extractor (any Python with numpy, Pillow, scipy and scikit-image) before the Blender pipeline whenever it changes.
 
 ## Rebuild

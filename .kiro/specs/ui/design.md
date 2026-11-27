@@ -70,3 +70,17 @@ Request: "when start the game it camera from top and slowly go to entrance".
   - Skip works.
   - The float, door, chunk, tour and phone checks pass.
 - **Not yet tested:** smoothness on a real phone. From the top, the phone draws the whole site for those 11 s.
+
+## As built: platform-first landing page (2026-11-27)
+Request: "considering the app landing page, it seemed like prioritize the museum perang penang… in future there will be other places to include… adjustment on the landing page so user know what this app is all about".
+
+- **Hero:** "Walk real heritage sites, from anywhere." The text explains what VirtualTourism is (real sites rebuilt in 3D from surveys; guided tour or free walk; phone, browser, Cardboard; no install). The main button is "Choose a destination", plus a secondary "Start the Night Walk at <first destination>".
+- **How it works:** three steps: pick a place, walk it your way, step inside in VR.
+- **Destinations:** every destination from the database, as cards from the shared `_destination_card.html`:
+  - Each card shows an "Open now in 3D" or "3D model coming soon" chip, the story count, and Explore and Guided tour buttons.
+  - A dashed "Coming next" card says more places are being rebuilt and each opens as its own chapter.
+  - The explore page uses the same card.
+- **Chapter 1, The Night Walk:** the Muzium Perang section is presented as the current chapter, keeping the Ghost Hill theme and the folklore and respect note.
+- **Wording made generic:** "Why virtual tourism?" and the site-wide meta description and footer ("not affiliated with the sites shown"; credits now list SRTM instead of OpenStreetMap).
+- **Route:** `main.index` passes all destinations.
+- **Checked:** headless Edge at 1280×800 and 390×844, with no console errors.
